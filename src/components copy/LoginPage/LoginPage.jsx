@@ -8,18 +8,25 @@ const LoginPage = ({ onLogin }) => {
   const inputPassRef = useRef();
   const [btnDisabled, setBtnDisabled] = useState(true);
 
-  const _onHandleClick = async () => {
+  const _onHandleClick = async (event) => {
+    event.preventDefault(); // Evita que el formulario se envíe
     try {
-      console.log("LLego click");
       const response = await login(
         inputUserNameRef.current.value,
         inputPassRef.current.value
       );
-      onLogin(response);
+  
+      if (response && response.id) {
+        localStorage.setItem("userId", response.id); // Guarda el ID del usuario
+        localStorage.setItem("apiKey", response.apiKey);
+      }
+  
+      onLogin(response); // Llama a la función onLogin con la respuesta
     } catch (error) {
       console.log(error);
     }
   };
+  
 
   const _onHandleChange = () => {
     if (
@@ -44,7 +51,7 @@ const LoginPage = ({ onLogin }) => {
       <form>
         {/** Alert here */}
         <div className="form-group">
-          <label for="email">Username</label>
+          <label htmlFor="email">Username</label>
           <div className="input-group">
             <div className="input-group-prepend">
               <span className="input-group-text">
@@ -62,7 +69,7 @@ const LoginPage = ({ onLogin }) => {
           </div>
         </div>
         <div className="form-group">
-          <label for="password">Password</label>
+          <label htmlFor="password">Password</label>
           <div className="input-group">
             <div className="input-group-prepend">
               <span className="input-group-text">
@@ -94,7 +101,7 @@ const LoginPage = ({ onLogin }) => {
         </button>
         <div className="form-group form-check mt-3">
           <input type="checkbox" className="form-check-input" id="rememberMe" />
-          <label className="form-check-label" for="rememberMe">
+          <label className="form-check-label" htmlFor="rememberMe">
             Remember me
           </label>
         </div>
@@ -105,4 +112,5 @@ const LoginPage = ({ onLogin }) => {
     </div>
   );
 };
+
 export default LoginPage;
