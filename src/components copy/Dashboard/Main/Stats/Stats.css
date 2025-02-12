@@ -1,0 +1,13 @@
+.stats-success {
+  background-color: #28a745 !important;
+  color: #fff;
+}
+
+.stats-danger {
+  background-color: #dc3545 !important;
+  color: #fff;
+}
+.stats-info {
+  border-radius: 15px !important;
+  text-align: left;
+}
