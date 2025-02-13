@@ -9,9 +9,17 @@ function App() {
   const _onLogin = (loginData) => {
     setUserData(loginData);
   };
+
+  const _onLogout = () => {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("apiKey");
+    setUserData(null); // Reiniciar el estado del usuario
+  };
+
+
   return (
     <div className="App">
-      {userData ? <Dashboard /> : <LoginPage onLogin={_onLogin} />}
+      {userData ? <Dashboard onLogout={_onLogout}  /> : <LoginPage onLogin={_onLogin} />}
     </div>
   );
 }
