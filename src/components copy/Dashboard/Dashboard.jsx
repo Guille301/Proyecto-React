@@ -2,7 +2,7 @@ import Main from "./Main/Main";
 import Header from "./Header/Header";
 import { useState } from "react";
 
-const Dashboard = () => {
+const Dashboard = ({ onLogout }) => {
   const [toDos, setToDos] = useState([
     { id: 1, title: "Lavarse los dientes", completed: true },
     { id: 2, title: "Hacer caso", completed: true },
@@ -16,7 +16,7 @@ const Dashboard = () => {
 
   return (
     <div className="container-fluid">
-      <Header />
+      <Header onLogout={onLogout}/>
       <Main toDos={toDos} onDeleteToDo={_onDelete} />
     </div>
   );

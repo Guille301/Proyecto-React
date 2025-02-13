@@ -1,7 +1,12 @@
 import "./Header.css";
 import logo from "./logo.svg";
 
-const Header = () => {
+const Header = ({ onLogout }) => {
+
+  const _onHandleClick =  () => {
+    onLogout();
+  };
+
   return (
     <header className="row">
       <div className="col-12 d-flex justify-content-between align-items-center my-3">
@@ -10,7 +15,9 @@ const Header = () => {
           <h1>@ To-Do App</h1>
         </div>
         <div>
-          <button type="submit" className={`btn btn-light btn-block`}>
+          <button type="submit" 
+          className={`btn btn-light btn-block`} 
+          onClick={_onHandleClick}>
             Logout
           </button>
         </div>
