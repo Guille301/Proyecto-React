@@ -9,16 +9,19 @@ const RegisterPage = ({ onRegister }) => {
     const inputPaisRef = useRef();
     const [btnDisabled, setBtnDisabled] = useState(true);
     const [mensajeError, setMensajeError] = useState(null);
+    const [paisesOption, setPaisesOption] = useState(null);
+    let paisesHTML = "";
 
     useEffect(() => {
-        try {
-            const paises = getPaises().paises;
-            console.log(paises);
-            console.log("asdsa")
-            //const paisesOption = paises.map((p) => `<option value=${p.id}>${p.name}</option>`)
-        } catch (error) {
-            alert("error fetch países")
+        async function fetchData() {
+            try {
+                const paises = await getPaises();
+                setPaisesOption(paises.paises);
+            } catch (error) {
+                alert("error fetch países")
+            }
         }
+        fetchData();
     }, []); //fetch países cuando se carga el comp.
 
     const _onHandleClick = async (event) => {
@@ -110,7 +113,11 @@ const RegisterPage = ({ onRegister }) => {
                             </span>
                         </div>
                         <select name="pais" id="pais" ref={inputPaisRef}>
-                            {/* paisesOption */}
+                            {paisesOption ? paisesOption.map((p) => (
+                                <option key={p.id} value={p.id}>
+                                    {p.name}
+                                </option>
+                            )) : <option>Cargando países...</option>}
                         </select>
                         <div className="input-group-append">
                             <span className="input-group-text">
@@ -125,19 +132,10 @@ const RegisterPage = ({ onRegister }) => {
                     onClick={_onHandleClick}
                     disabled={btnDisabled}
                 >
-                    Login
+                    Registrarse
                 </button>
                 {mensajeError ? <p className="alert alert-warning">{mensajeError}</p> : <p />}
-                <div className="form-group form-check mt-3">
-                    <input type="checkbox" className="form-check-input" id="rememberMe" />
-                    <label className="form-check-label" htmlFor="rememberMe">
-                        Remember me
-                    </label>
-                </div>
             </form>
-            <p className="text-center mt-4">
-                Don't have an account? <a href="#">Sign up here</a>
-            </p>
         </div>
     );
 };
