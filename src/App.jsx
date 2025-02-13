@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Dashboard from "./components copy/Dashboard/Dashboard";
 import LoginPage from "./components copy/LoginPage/LoginPage";
+import RegisterPage from './components copy/RegisterPage/RegisterPage';
 import './App.css'
 
 function App() {
@@ -19,7 +20,8 @@ function App() {
 
   return (
     <div className="App">
-      {userData ? <Dashboard onLogout={_onLogout}  /> : <LoginPage onLogin={_onLogin} />}
+      <RegisterPage/>
+      {/* userData ? <Dashboard onLogout={_onLogout}  /> : <LoginPage onLogin={_onLogin} /> */}
     </div>
   );
 }

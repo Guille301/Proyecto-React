@@ -25,4 +25,27 @@ const login = async (username, password) => {
   }
 };
 
-export { login };
+const getPaises = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/paises.php`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      }
+    });
+    console.log(response)
+    if (response.status == 200) {
+      return response.json();
+    } else {
+      return Promise.reject("Ha ocurrido un error");
+    }
+  } catch (error) {
+    return Promise.reject("Ha ocurrido un error");
+  }
+};
+
+const registrarse = async () => {
+  alert("registrarse")
+};
+
+export { login, getPaises, registrarse };
