@@ -2,11 +2,13 @@ import { useRef, useState } from "react";
 import "./LoginPage.css";
 import logo from "./to-do-icon.png";
 import { login } from "../../services/api";
+import 'bootstrap/dist/css/bootstrap.css';
 
 const LoginPage = ({ onLogin }) => {
   const inputUserNameRef = useRef();
   const inputPassRef = useRef();
   const [btnDisabled, setBtnDisabled] = useState(true);
+  const [mensajeError, setMensajeError] = useState(null);
 
   const _onHandleClick = async (event) => {
     event.preventDefault(); // Evita que el formulario se envíe
@@ -20,10 +22,10 @@ const LoginPage = ({ onLogin }) => {
         localStorage.setItem("userId", response.id); // Guarda el ID del usuario
         localStorage.setItem("apiKey", response.apiKey);
       }
-  
+      setMensajeError(null);
       onLogin(response); // Llama a la función onLogin con la respuesta
     } catch (error) {
-      console.log(error);
+      setMensajeError(error);
     }
   };
   
@@ -99,6 +101,7 @@ const LoginPage = ({ onLogin }) => {
         >
           Login
         </button>
+        {mensajeError ? <p className="alert alert-warning">{mensajeError}</p> : <p/>}
         <div className="form-group form-check mt-3">
           <input type="checkbox" className="form-check-input" id="rememberMe" />
           <label className="form-check-label" htmlFor="rememberMe">
