@@ -20,8 +20,8 @@ function App() {
 
   return (
     <div className="App">
-      <RegisterPage/>
-      {/* userData ? <Dashboard onLogout={_onLogout}  /> : <LoginPage onLogin={_onLogin} /> */}
+      {/* <RegisterPage/> */}
+      {userData ? <Dashboard onLogout={_onLogout}  /> : <LoginPage onLogin={_onLogin} />}
     </div>
   );
 }

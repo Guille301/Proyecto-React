@@ -1,14 +1,15 @@
 import { useRef, useState } from "react";
 import "./LoginPage.css";
-import logo from "./to-do-icon.png";
 import { login } from "../../services/api";
 import 'bootstrap/dist/css/bootstrap.css';
+import logo from "../../img/logo.jpg"
 
 const LoginPage = ({ onLogin }) => {
   const inputUserNameRef = useRef();
   const inputPassRef = useRef();
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [mensajeError, setMensajeError] = useState(null);
+  
 
   const _onHandleClick = async (event) => {
     event.preventDefault(); // Evita que el formulario se envíe
@@ -44,7 +45,9 @@ const LoginPage = ({ onLogin }) => {
   return (
     <div className="login-container">
       <div className="text-center logo-container">
-        <img src={logo} width="70" alt="Logo" />
+        <figure className="img-fluid">
+        <img src={logo} width="90" alt="Logo" />
+        </figure>
       </div>
       <h1 className="text-center">Sign in</h1>
       <p className="text-center">

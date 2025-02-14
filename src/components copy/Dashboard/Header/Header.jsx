@@ -1,5 +1,5 @@
 import "./Header.css";
-import logo from "./logo.jpg";
+import logo from "../../../img/logo.jpg";
 const Header = ({ onLogout }) => {
 
   const _onHandleClick =  () => {
@@ -8,10 +8,10 @@ const Header = ({ onLogout }) => {
 
   return (
     <header className="row">
-      <div className="col-12 d-flex justify-content-between align-items-center my-3 ">
+      <div id="header" className="col-12 d-flex justify-content-between align-items-center my-3 ">
         <div className="d-flex align-items-center">
           <figure className="m-2">
-          <img src={logo} alt="Logo" className="mr-2 rounded" width={70} />
+          <img src={logo} alt="Logo" className="mr-2 rounded-circle" width={70} />
           </figure>
           <h1>Gestión de ejercicios</h1>
         </div>
