@@ -11,6 +11,7 @@ function App() {
 
   const _onLogin = (loginData) => {
     setUserData(loginData);
+    alert("serUserData");
   };
 
   const _onLogout = () => {
@@ -19,12 +20,11 @@ function App() {
     setUserData(null); // Reiniciar el estado del usuario
   };
 
-
   return (
     <div className="App">
       <Routes>
         <Route path="/login" element={<LoginPage onLogin={_onLogin} userData={userData} />}/>
-        <Route path="/register" element={<RegisterPage/>}/>
+        <Route path="/register" element={<RegisterPage onLogin={_onLogin} userData={userData}/>} />
         <Route path="/dashboard" element=
           {<PrivateRoute userData={userData}>
             <Dashboard userData={userData} onLogout={_onLogout} />

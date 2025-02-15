@@ -44,8 +44,31 @@ const getPaises = async () => {
   }
 };
 
-const registrarse = async () => {
-  alert("registrarse")
+const registrarse = async (username, password, pais) => {
+  try {
+    const response = await fetch(`${BASE_URL}/usuarios.php`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        usuario: username,
+        password: password,
+        pais: pais
+      }),
+    });
+    console.log(response)
+    if (response.status == 200) {
+      console.log("registro exitoso")
+      return response.json();
+    }else if(response.status == 409){
+      return Promise.reject("El nombre de usuario ya está en uso");
+    } else {
+      return Promise.reject("Ha ocurrido un error");
+    }
+  } catch (error) {
+    return Promise.reject("Ha ocurrido un error");
+  }
 };
 
 export { login, getPaises, registrarse };

@@ -4,6 +4,8 @@ import { login } from "../../services/api";
 import 'bootstrap/dist/css/bootstrap.css';
 import logo from "../../img/logo.jpg"
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 
 const LoginPage = ({ onLogin, userData }) => {
   const inputUserNameRef = useRef();
@@ -57,9 +59,9 @@ const LoginPage = ({ onLogin, userData }) => {
         <img src={logo} width="90" alt="Logo" />
         </figure>
       </div>
-      <h1 className="text-center">Sign in</h1>
+      <h1 className="text-center">Login</h1>
       <p className="text-center">
-        Log in by entering your email address and password.
+        Ingresá con tu mail y contraseña.
       </p>
       <form>
         {/** Alert here */}
@@ -113,15 +115,9 @@ const LoginPage = ({ onLogin, userData }) => {
           Login
         </button>
         {mensajeError ? <p className="alert alert-warning">{mensajeError}</p> : <p/>}
-        <div className="form-group form-check mt-3">
-          <input type="checkbox" className="form-check-input" id="rememberMe" />
-          <label className="form-check-label" htmlFor="rememberMe">
-            Remember me
-          </label>
-        </div>
       </form>
       <p className="text-center mt-4">
-        Don't have an account? <a href="#">Sign up here</a>
+        ¿No tenés cuenta? <Link to="/register">¡Registrate!</Link>
       </p>
     </div>
   );

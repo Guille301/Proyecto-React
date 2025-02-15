@@ -2,15 +2,23 @@ import { useRef, useState, useEffect } from "react";
 import "./RegisterPage.css";
 import { getPaises, registrarse } from "../../services/api";
 import 'bootstrap/dist/css/bootstrap.css';
+import { useNavigate } from "react-router-dom";
 
-const RegisterPage = ({ onRegister }) => {
+const RegisterPage = ({ onLogin, userData}) => {
     const inputUserNameRef = useRef();
     const inputPassRef = useRef();
     const inputPaisRef = useRef();
     const [btnDisabled, setBtnDisabled] = useState(true);
     const [mensajeError, setMensajeError] = useState(null);
     const [paisesOption, setPaisesOption] = useState(null);
-    let paisesHTML = "";
+    const navigateTo = useNavigate();
+
+    useEffect(() => {
+        if (userData) {
+            navigateTo("/dashboard")
+            console.log("dashboard");
+        }
+    }, [userData])//autologin -> lleva al dashboard
 
     useEffect(() => {
         async function fetchData() {
@@ -22,22 +30,22 @@ const RegisterPage = ({ onRegister }) => {
             }
         }
         fetchData();
-    }, []); //fetch países cuando se carga el comp.
+    }, []); //fetch países cuando se carga el comp. NO BORRAR PARÉNTESIS RECTOS
 
     const _onHandleClick = async (event) => {
-        event.preventDefault(); // Evita que el formulario se envíe
+        event.preventDefault();//evitar envío formulario
         try {
-            const response = await login(
+            const response = await registrarse(
                 inputUserNameRef.current.value,
-                inputPassRef.current.value
+                inputPassRef.current.value,
+                inputPaisRef.current.value
             );
-
             if (response && response.id) {
                 localStorage.setItem("userId", response.id); // Guarda el ID del usuario
                 localStorage.setItem("apiKey", response.apiKey);
             }
-            setMensajeError(null);
-            onLogin(response); // Llama a la función onLogin con la respuesta
+            alert("registro exitoso")
+            onLogin(response); // Login automático     
         } catch (error) {
             setMensajeError(error);
         }
@@ -64,7 +72,7 @@ const RegisterPage = ({ onRegister }) => {
             <form>
                 {/** Alert here */}
                 <div className="form-group">
-                    <label htmlFor="email">Username</label>
+                    <label htmlFor="usuario">Nombre de usuario</label>
                     <div className="input-group">
                         <div className="input-group-prepend">
                             <span className="input-group-text">
@@ -72,10 +80,10 @@ const RegisterPage = ({ onRegister }) => {
                             </span>
                         </div>
                         <input
-                            type="email"
+                            type="text"
                             className="form-control"
-                            id="email"
-                            placeholder="email@address.com"
+                            id="usuario"
+                            placeholder="fulanito123"
                             ref={inputUserNameRef}
                             onChange={_onHandleChange}
                         />
