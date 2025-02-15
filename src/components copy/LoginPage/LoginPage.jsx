@@ -1,14 +1,22 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import "./LoginPage.css";
 import { login } from "../../services/api";
 import 'bootstrap/dist/css/bootstrap.css';
 import logo from "../../img/logo.jpg"
+import { useNavigate } from "react-router-dom";
 
-const LoginPage = ({ onLogin }) => {
+const LoginPage = ({ onLogin, userData }) => {
   const inputUserNameRef = useRef();
   const inputPassRef = useRef();
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [mensajeError, setMensajeError] = useState(null);
+  const navigateTo = useNavigate();
+
+  useEffect(() => {
+    if (userData) {
+      navigateTo("/dashboard")
+    }
+  }, [userData])
   
 
   const _onHandleClick = async (event) => {

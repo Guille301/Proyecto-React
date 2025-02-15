@@ -2,7 +2,9 @@ import { useState } from 'react'
 import Dashboard from "./components copy/Dashboard/Dashboard";
 import LoginPage from "./components copy/LoginPage/LoginPage";
 import RegisterPage from './components copy/RegisterPage/RegisterPage';
+import PrivateRoute from './components copy/PrivateRoute/PrivateRoute';
 import './App.css'
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
   const [userData, setUserData] = useState(null);
@@ -20,8 +22,14 @@ function App() {
 
   return (
     <div className="App">
-      {/* <RegisterPage/> */}
-      {userData ? <Dashboard onLogout={_onLogout}  /> : <LoginPage onLogin={_onLogin} />}
+      <Routes>
+        <Route path="/login" element={<LoginPage onLogin={_onLogin} userData={userData} />}/>
+        <Route path="/register" element={<RegisterPage/>}/>
+        <Route path="/dashboard" element=
+          {<PrivateRoute userData={userData}>
+            <Dashboard userData={userData} onLogout={_onLogout} />
+          </PrivateRoute>} />
+      </Routes>
     </div>
   );
 }
