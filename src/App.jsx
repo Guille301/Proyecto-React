@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Dashboard from "./components copy/Dashboard/Dashboard";
 import LoginPage from "./components copy/LoginPage/LoginPage";
 import RegisterPage from './components copy/RegisterPage/RegisterPage';
@@ -9,9 +9,23 @@ import { Routes, Route } from 'react-router-dom';
 function App() {
   const [userData, setUserData] = useState(null);
 
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    const apiKey = localStorage.getItem("apiKey");
+    if (userId && apiKey) {
+      setUserData({ id: userId, apiKey: apiKey });
+    }
+  }, []);//Auto login cuando se carga la app y comprueba si hay datos en el local storage
+
+  useEffect(() => {
+    console.log("Current userData:", userData);
+  }, [userData]);
+
   const _onLogin = (loginData) => {
+    localStorage.setItem("userId", loginData.id); // Guarda el ID del usuario
+    localStorage.setItem("apiKey", loginData.apiKey);
     setUserData(loginData);
-    alert("serUserData");
+    alert("seTUserData");
   };
 
   const _onLogout = () => {
@@ -23,8 +37,8 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/login" element={<LoginPage onLogin={_onLogin} userData={userData} />}/>
-        <Route path="/register" element={<RegisterPage onLogin={_onLogin} userData={userData}/>} />
+        <Route path="/login" element={<LoginPage onLogin={_onLogin} userData={userData} />} />
+        <Route path="/register" element={<RegisterPage onLogin={_onLogin} userData={userData} />} />
         <Route path="/dashboard" element=
           {<PrivateRoute userData={userData}>
             <Dashboard userData={userData} onLogout={_onLogout} />

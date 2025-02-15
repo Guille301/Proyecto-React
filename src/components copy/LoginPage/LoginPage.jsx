@@ -3,8 +3,7 @@ import "./LoginPage.css";
 import { login } from "../../services/api";
 import 'bootstrap/dist/css/bootstrap.css';
 import logo from "../../img/logo.jpg"
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 
 const LoginPage = ({ onLogin, userData }) => {
@@ -28,11 +27,6 @@ const LoginPage = ({ onLogin, userData }) => {
         inputUserNameRef.current.value,
         inputPassRef.current.value
       );
-  
-      if (response && response.id) {
-        localStorage.setItem("userId", response.id); // Guarda el ID del usuario
-        localStorage.setItem("apiKey", response.apiKey);
-      }
       setMensajeError(null);
       onLogin(response); // Llama a la función onLogin con la respuesta
     } catch (error) {

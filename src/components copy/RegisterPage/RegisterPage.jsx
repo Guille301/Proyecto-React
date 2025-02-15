@@ -14,11 +14,10 @@ const RegisterPage = ({ onLogin, userData}) => {
     const navigateTo = useNavigate();
 
     useEffect(() => {
-        if (userData) {
-            navigateTo("/dashboard")
-            console.log("dashboard");
+        if (localStorage.getItem("userId")) {
+          navigateTo("/dashboard")
         }
-    }, [userData])//autologin -> lleva al dashboard
+      }, [userData])//autologin -> lleva al dashboard
 
     useEffect(() => {
         async function fetchData() {
@@ -40,12 +39,7 @@ const RegisterPage = ({ onLogin, userData}) => {
                 inputPassRef.current.value,
                 inputPaisRef.current.value
             );
-            if (response && response.id) {
-                localStorage.setItem("userId", response.id); // Guarda el ID del usuario
-                localStorage.setItem("apiKey", response.apiKey);
-            }
-            alert("registro exitoso")
-            onLogin(response); // Login automático     
+            onLogin(response); // Login automático post registro   
         } catch (error) {
             setMensajeError(error);
         }
