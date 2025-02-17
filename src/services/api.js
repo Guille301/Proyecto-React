@@ -71,4 +71,66 @@ const registrarse = async (username, password, pais) => {
   }
 };
 
-export { login, getPaises, registrarse };
+// Agregar actividad
+const agregarActividad = async (tiempo, fecha, userId, apiKey,idActividad) => {
+  try {
+    const response = await fetch(`${BASE_URL}/todos`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: apiKey,
+      },
+      body: JSON.stringify({
+        userId: userId,
+        tiempo: tiempo,
+        fecha: fecha,
+        idActividad : idActividad,
+      }),
+    });
+    if (response.ok) {
+      return response.json();
+    } else {
+      return Promise.reject({
+        message: "Ha ocurrido un error",
+      });
+    }
+  } catch (error) {
+    return Promise.reject({
+      message: "Ha ocurrido un error",
+    });
+  }
+};
+
+
+//Obtener actividades
+
+const ObtenerActividades = async (apiKey, idUser) => {
+  try {
+    const response = await fetch(`${BASE_URL}/actividades.php`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": apiKey,   
+        "iduser": idUser, 
+      },
+    });
+
+    console.log(response);
+
+    if (response.ok) {
+      console.log("Entro");
+      return response.json();
+    } else {
+      console.log("No entro", response.status);
+      return Promise.reject(`Error: ${response.status}`);
+    }
+  } catch (error) {
+    console.log("No entro2", error);
+    return Promise.reject("Ha ocurrido un error");
+  }
+};
+
+
+
+
+export { login, getPaises, registrarse,agregarActividad ,ObtenerActividades};

@@ -27,6 +27,8 @@ const LoginPage = ({ onLogin, userData }) => {
         inputUserNameRef.current.value,
         inputPassRef.current.value
       );
+      console.log("Respuesta de la API:", response); // Verifica la respuesta
+
       setMensajeError(null);
       onLogin(response); // Llama a la función onLogin con la respuesta
     } catch (error) {

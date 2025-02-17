@@ -14,10 +14,14 @@ const Dashboard = ({ onLogout }) => {
     setToDos(filteredToDos);
   };
 
+  const _onAddToDo = (newToDo) => {
+    setToDos([newToDo, ...toDos]); 
+  };
+
   return (
     <div className="container-fluid">
       <Header onLogout={onLogout}/>
-      <Main toDos={toDos} onDeleteToDo={_onDelete} />
+      <Main toDos={toDos} onDeleteToDo={_onDelete} onAddToDo={_onAddToDo} />
     </div>
   );
 };
