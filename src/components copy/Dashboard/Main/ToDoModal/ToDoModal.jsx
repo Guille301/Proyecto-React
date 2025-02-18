@@ -6,7 +6,10 @@ const ToDoModal = ({ onToggleModal, onAddToDo }) => {
   const inputTiempoRef = useRef();
   const inputFechaRef = useRef();
   const inputActividadRef = useRef();
+
   const [actividades, setActividades] = useState([]);
+  //Aca alamaceno las tareas guardadas en el local storage
+  const [storedToDos, setStoredToDos] = useState([]);
 
   useEffect(() => {
     const fetchActividades = async () => {
@@ -14,21 +17,26 @@ const ToDoModal = ({ onToggleModal, onAddToDo }) => {
         const userData = getUserDataFromLocalStorage();
         if (userData && userData.apiKey) {
           const response = await ObtenerActividades(userData.apiKey, userData.id);
-          setActividades(response);
+          setActividades(response.actividades);
         }
       } catch (error) {
         console.error("Error al obtener actividades:", error);
       }
     };
+
     fetchActividades();
+
+    // Intento traer las tareas del local storage pero no esta funcionando
+    const savedToDos = JSON.parse(localStorage.getItem("userToDos")) || [];
+    setStoredToDos(savedToDos);
   }, []);
 
   const _onHandleClick = async () => {
     const tiempo = inputTiempoRef.current.value;
     const fecha = inputFechaRef.current.value;
-    const actividadId = inputActividadRef.current.value;
+    const actividad = inputActividadRef.current.value;
 
-    if (!actividadId || tiempo <= 0 || !fecha) {
+    if (!actividad || tiempo <= 0 || !fecha) {
       alert("Todos los campos son obligatorios");
       return;
     }
@@ -37,13 +45,19 @@ const ToDoModal = ({ onToggleModal, onAddToDo }) => {
       const userData = getUserDataFromLocalStorage();
       if (userData) {
         const { id, apiKey } = userData;
-        const response = await agregarActividad(tiempo, fecha, id, apiKey, actividadId);
-        
+        const response = await agregarActividad(tiempo, fecha, id, apiKey, actividad);
+
         const newToDo = {
           id: response.id,
           title: response.nombre,
           completed: false,
         };
+
+        const updatedToDos = [...storedToDos, newToDo];
+
+        // Guardar en localStorage
+        localStorage.setItem("userToDos", JSON.stringify(updatedToDos));
+        setStoredToDos(updatedToDos);
 
         onAddToDo(newToDo);
         onToggleModal();
@@ -52,6 +66,9 @@ const ToDoModal = ({ onToggleModal, onAddToDo }) => {
       console.log(error);
     }
   };
+
+
+  console.log("Actividades que llegan de la api", actividades);
 
   return (
     <div
@@ -78,25 +95,25 @@ const ToDoModal = ({ onToggleModal, onAddToDo }) => {
           </div>
           <div className="modal-body">
             <form>
-              <div className="form-group">
-                <label>Actividad</label>
-                <select name="actividad" id="actividad" ref={inputActividadRef} className="form-control">
-                  {actividades.length > 0 ? (
-                    actividades.map((actividad) => (
-                      <option key={actividad.id} value={actividad.id}>
-                        {actividad.nombre}
-                      </option>
-                    ))
-                  ) : (
-                    <option>Cargando actividades...</option>
-                  )}
+
+
+              <div>
+                <label>Seleccionar actividad select</label>
+
+                <select className="form-control" ref={inputActividadRef} required>
+                  <option value="">Seleccione una actividad</option>
+                  {Array.isArray(actividades) && actividades.map((actividad) => (
+                    <option key={actividad.id} value={actividad.id}>
+                      {actividad.nombre}
+                    </option>
+                  ))}
                 </select>
               </div>
-
               <div className="form-group">
                 <label>Tiempo de la actividad</label>
-                <input type="text" className="form-control" ref={inputTiempoRef} />
+                <input type="number" className="form-control" ref={inputTiempoRef} />
               </div>
+
               <div className="form-group">
                 <label>Fecha de la actividad</label>
                 <input type="date" className="form-control" ref={inputFechaRef} />
