@@ -102,7 +102,7 @@ const ToDoModal = ({ onToggleModal, onAddToDo }) => {
               
                {/* Seleccion por id de forma provisoria */}
                <div className="form-group">
-                <label>Tiempo de la actividad</label>
+                <label>Tipo de actividad</label>
                 <input type="number" className="form-control" ref={inputActividadRef} />
               </div>
               
