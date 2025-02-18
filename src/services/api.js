@@ -74,17 +74,18 @@ const registrarse = async (username, password, pais) => {
 // Agregar actividad
 const agregarActividad = async (tiempo, fecha, userId, apiKey,idActividad) => {
   try {
-    const response = await fetch(`${BASE_URL}/registros`, {
+    const response = await fetch(`${BASE_URL}/registros.php`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
         Authorization: apiKey,
       },
       body: JSON.stringify({
+        idActividad : idActividad,
         userId: userId,
         tiempo: tiempo,
         fecha: fecha,
-        idActividad : idActividad,
+        
       }),
     });
     if (response.ok) {
