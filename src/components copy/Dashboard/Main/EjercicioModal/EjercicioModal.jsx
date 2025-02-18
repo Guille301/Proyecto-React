@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { agregarActividad, ObtenerActividades } from "../../../../services/api";
 import { getUserDataFromLocalStorage } from "../../../../utils/utils";
 
-const ToDoModal = ({ onToggleModal, onAddToDo }) => {
+const EjercicioModal = ({ onToggleModal, onAddToDo }) => {
   const inputTiempoRef = useRef();
   const inputFechaRef = useRef();
   const inputActividadRef = useRef();

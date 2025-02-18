@@ -16,11 +16,8 @@ const Main = ({ toDos, onDeleteToDo, onAddToDo }) => {
       <Stats />
       <ChartContainer />
       <ToDoList toDos={toDos} onDeleteToDo={onDeleteToDo} onToggleModal={_onToggleModal}/>
-
-     
-
       {showModal && (
-        <ToDoModal onToggleModal={_onToggleModal} onAddToDo={onAddToDo} />
+        <EjercicioModal onToggleModal={_onToggleModal} onAddToDo={onAddToDo} />
       )}
     </>
   );
