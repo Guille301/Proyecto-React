@@ -17,7 +17,7 @@ const ToDoModal = ({ onToggleModal, onAddToDo }) => {
         console.log("datos de usu:", userData); // Verifica esto
 
         if (userData && userData.apiKey) {
-          const response = await ObtenerActividades(userData.apiKey); // Pasa el apiKey aquí
+          const response = await ObtenerActividades(userData.apiKey, userData.id); // Pasa el apiKey aquí
           console.log("Respuesta de la API2:", response); // Verifica la respuesta
           setActividades(response);
         }

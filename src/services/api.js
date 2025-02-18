@@ -74,7 +74,7 @@ const registrarse = async (username, password, pais) => {
 // Agregar actividad
 const agregarActividad = async (tiempo, fecha, userId, apiKey,idActividad) => {
   try {
-    const response = await fetch(`${BASE_URL}/todos`, {
+    const response = await fetch(`${BASE_URL}/registros`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
