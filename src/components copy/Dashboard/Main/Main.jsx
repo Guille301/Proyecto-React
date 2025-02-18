@@ -1,7 +1,7 @@
 import ChartContainer from "./ChartContainer/ChartContainer";
 import Stats from "./Stats/Stats";
 import ToDoList from "./ToDoList/ToDoList";
-import ToDoModal from "./ToDoModal/ToDoModal";
+import EjercicioModal from "./ToDoModal/ToDoModal";
 import { useState } from "react";
 
 const Main = ({ toDos, onDeleteToDo, onAddToDo }) => {
