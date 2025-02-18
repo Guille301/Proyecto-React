@@ -131,4 +131,4 @@ console.log("Guardado en local sotrage",storedToDos);
   );
 };
 
-export default ToDoModal;
+export default EjercicioModal;
