@@ -8,8 +8,6 @@ const ToDoModal = ({ onToggleModal, onAddToDo }) => {
   const inputActividadRef = useRef();
 
   const [actividades, setActividades] = useState([]);
-  //Aca alamaceno las tareas guardadas en el local storage
-  const [storedToDos, setStoredToDos] = useState([]);
 
   useEffect(() => {
     const fetchActividades = async () => {
@@ -68,6 +66,9 @@ const ToDoModal = ({ onToggleModal, onAddToDo }) => {
   };
 
 
+console.log("Guardado en local sotrage",storedToDos);
+
+
   console.log("Actividades que llegan de la api", actividades);
 
   return (
@@ -95,18 +96,18 @@ const ToDoModal = ({ onToggleModal, onAddToDo }) => {
           </div>
           <div className="modal-body">
             <form>
-
-
-              <div>
-                <label>Seleccionar actividad select</label>
-
-                <select className="form-control" ref={inputActividadRef} required>
-                  <option value="">Seleccione una actividad</option>
-                  {Array.isArray(actividades) && actividades.map((actividad) => (
-                    <option key={actividad.id} value={actividad.id}>
-                      {actividad.nombre}
-                    </option>
-                  ))}
+              <div className="form-group">
+                <label>Actividad</label>
+                <select name="actividad" id="actividad" ref={inputActividadRef} className="form-control">
+                  {actividades.length > 0 ? (
+                    actividades.map((actividad) => (
+                      <option key={actividad.id} value={actividad.id}>
+                        {actividad.nombre}
+                      </option>
+                    ))
+                  ) : (
+                    <option>Cargando actividades...</option>
+                  )}
                 </select>
               </div>
               <div className="form-group">
