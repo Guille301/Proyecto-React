@@ -8,7 +8,6 @@ const EjercicioModal = ({ onToggleModal, onAddToDo }) => {
   const inputActividadRef = useRef();
 
   const [actividades, setActividades] = useState([]);
-  const [storedToDos, setStoredToDos] = useState([]);
 
   useEffect(() => {
     const fetchActividades = async () => {
@@ -25,9 +24,7 @@ const EjercicioModal = ({ onToggleModal, onAddToDo }) => {
 
     fetchActividades();
 
-    // Intento traer las tareas del local storage pero no esta funcionando
-    const savedToDos = JSON.parse(localStorage.getItem("userToDos")) || [];
-    setStoredToDos(savedToDos);
+   
   }, []);
 
   const _onHandleClick = async () => {
@@ -52,11 +49,7 @@ const EjercicioModal = ({ onToggleModal, onAddToDo }) => {
           completed: false,
         };
 
-        const updatedToDos = [...storedToDos, newToDo];
-
-        // Guardar en localStorage
-        localStorage.setItem("userToDos", JSON.stringify(updatedToDos));
-        setStoredToDos(updatedToDos);
+        
 
         onAddToDo(newToDo);
         onToggleModal();
