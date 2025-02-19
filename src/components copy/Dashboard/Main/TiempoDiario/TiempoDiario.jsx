@@ -1,4 +1,4 @@
-import "./Stats.css";
+import "./styleDiario.css";
 import { ObtenerRegistro } from "../../../../services/api";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -33,10 +33,10 @@ const TiempoDiario = () => {
   }, [userData]);
 
   return (
-    <div className="row text-center">
-      <div className="col-md-4">
+    <div className="row text-center desing">
+      <div className="col-md-4 desing">
         <div className={`card stats-info`}>
-          <div className="card-body">
+          <div className="card-body desing">
             <h2>Tiempo diario en minutos</h2>
             <h3>{minutosDiarios}</h3>
           </div>

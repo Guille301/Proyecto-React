@@ -9,12 +9,13 @@ const EjercicioModal = ({ onToggleModal, onAddToDo }) => {
 
   const [actividades, setActividades] = useState([]);
   const userData = useSelector((state) => state.userSlice.userData);
+  const dispatcher = useDispatch();
 
   useEffect(() => {
     const fetchActividades = async (apiKey, idUser) => {
       try {
         const response = await ObtenerActividades(apiKey, idUser);
-        setActividades(response.actividades);
+        dispatcher(setActividades(response.actividades));
       } catch (error) {
         console.error("Error al obtener actividades:", error);
       }
@@ -40,10 +41,10 @@ const EjercicioModal = ({ onToggleModal, onAddToDo }) => {
         const { id, apiKey } = userData;
         const response = await agregarActividad(tiempo, fecha, id, apiKey, actividad);
 
-        const newToDo = {
+        const newActividad= {
           id: response.id,
           title: response.nombre,
-          completed: false,
+          
         };
 
         onAddToDo(newToDo);
