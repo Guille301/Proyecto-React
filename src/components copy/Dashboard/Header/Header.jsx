@@ -1,10 +1,12 @@
 import "./Header.css";
 import logo from "../../../img/logo.jpg";
-const Header = ({ onLogout }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { onLogout } from "../../../app/slices/userSlice";
 
-  const _onHandleClick =  () => {
-    onLogout();
-  };
+const Header = () => {
+
+  const userData = useSelector((state) => state.userSlice.userData);
+  const dispatcher = useDispatch();
 
   return (
     <header className="row">
@@ -18,7 +20,7 @@ const Header = ({ onLogout }) => {
         <div>
           <button type="submit" 
           className={`btn btn-light btn-block`} 
-          onClick={_onHandleClick}>
+          onClick={() => dispatcher(onLogout())}>
             Logout
           </button>
         </div>

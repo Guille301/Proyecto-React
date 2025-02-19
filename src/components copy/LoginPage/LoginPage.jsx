@@ -4,9 +4,14 @@ import { login } from "../../services/api";
 import 'bootstrap/dist/css/bootstrap.css';
 import logo from "../../img/logo.jpg"
 import { useNavigate, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
+import {onLogin} from "../../app/slices/userSlice";
 
-const LoginPage = ({ onLogin, userData }) => {
+const LoginPage = () => {
+  const userData = useSelector((state) => state.userSlice.userData);
+  const dispatcher = useDispatch();
+
   const inputUserNameRef = useRef();
   const inputPassRef = useRef();
   const [btnDisabled, setBtnDisabled] = useState(true);
@@ -17,7 +22,7 @@ const LoginPage = ({ onLogin, userData }) => {
     if (userData) {
       navigateTo("/dashboard")
     }
-  }, [userData])
+  }, [userData])//autologin -> lleva al dashboard
   
 
   const _onHandleClick = async (event) => {
@@ -27,10 +32,8 @@ const LoginPage = ({ onLogin, userData }) => {
         inputUserNameRef.current.value,
         inputPassRef.current.value
       );
-      console.log("Respuesta de la API:", response); // Verifica la respuesta
-
       setMensajeError(null);
-      onLogin(response); // Llama a la función onLogin con la respuesta
+      dispatcher(onLogin(response))// Llama a la función onLogin con la respuesta
     } catch (error) {
       setMensajeError(error);
     }

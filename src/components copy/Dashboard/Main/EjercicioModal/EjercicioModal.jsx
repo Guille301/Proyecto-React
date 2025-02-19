@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { agregarActividad, ObtenerActividades } from "../../../../services/api";
-import { getUserDataFromLocalStorage } from "../../../../utils/utils";
+import { useSelector } from "react-redux";
 
 const EjercicioModal = ({ onToggleModal, onAddToDo }) => {
   const inputTiempoRef = useRef();
@@ -8,24 +8,22 @@ const EjercicioModal = ({ onToggleModal, onAddToDo }) => {
   const inputActividadRef = useRef();
 
   const [actividades, setActividades] = useState([]);
+  const userData = useSelector((state) => state.userSlice.userData);
 
   useEffect(() => {
-    const fetchActividades = async () => {
+    const fetchActividades = async (apiKey, idUser) => {
       try {
-        const userData = getUserDataFromLocalStorage();
-        if (userData && userData.apiKey) {
-          const response = await ObtenerActividades(userData.apiKey, userData.id);
-          setActividades(response.actividades);
-        }
+        const response = await ObtenerActividades(apiKey, idUser);
+        setActividades(response.actividades);
       } catch (error) {
         console.error("Error al obtener actividades:", error);
       }
     };
 
-    fetchActividades();
-
-   
-  }, []);
+    if (userData && userData.apiKey) {
+      fetchActividades(userData.apiKey, userData.id);
+    }
+  }, [userData]);
 
   const _onHandleClick = async () => {
     const tiempo = inputTiempoRef.current.value;
@@ -38,7 +36,6 @@ const EjercicioModal = ({ onToggleModal, onAddToDo }) => {
     }
 
     try {
-      const userData = getUserDataFromLocalStorage();
       if (userData) {
         const { id, apiKey } = userData;
         const response = await agregarActividad(tiempo, fecha, id, apiKey, actividad);
@@ -49,8 +46,6 @@ const EjercicioModal = ({ onToggleModal, onAddToDo }) => {
           completed: false,
         };
 
-        
-
         onAddToDo(newToDo);
         onToggleModal();
       }
@@ -58,11 +53,6 @@ const EjercicioModal = ({ onToggleModal, onAddToDo }) => {
       console.log(error);
     }
   };
-
-
-
-
-  
 
   return (
     <div

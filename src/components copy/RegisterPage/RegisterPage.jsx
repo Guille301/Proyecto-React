@@ -3,8 +3,10 @@ import "./RegisterPage.css";
 import { getPaises, registrarse } from "../../services/api";
 import 'bootstrap/dist/css/bootstrap.css';
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import {onLogin} from "../../app/slices/userSlice";
 
-const RegisterPage = ({ onLogin, userData}) => {
+const RegisterPage = () => {
     const inputUserNameRef = useRef();
     const inputPassRef = useRef();
     const inputPaisRef = useRef();
@@ -13,11 +15,14 @@ const RegisterPage = ({ onLogin, userData}) => {
     const [paisesOption, setPaisesOption] = useState(null);
     const navigateTo = useNavigate();
 
-    useEffect(() => {
+    const userData = useSelector((state) => state.userSlice.userData);
+  const dispatcher = useDispatch();
+
+    /* useEffect(() => {
         if (localStorage.getItem("userId")) {
           navigateTo("/dashboard")
         }
-      }, [userData])//autologin -> lleva al dashboard
+      }, [userData]) *///autologin -> lleva al dashboard
 
     useEffect(() => {
         async function fetchData() {
@@ -39,7 +44,7 @@ const RegisterPage = ({ onLogin, userData}) => {
                 inputPassRef.current.value,
                 inputPaisRef.current.value
             );
-            onLogin(response); // Login automático post registro   
+            dispatcher(onLogin(response)); // Login automático post registro   
         } catch (error) {
             setMensajeError(error);
         }

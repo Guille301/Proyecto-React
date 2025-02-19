@@ -1,37 +1,33 @@
 import "./Stats.css";
 import { ObtenerRegistro } from "../../../../services/api";
-import { getUserDataFromLocalStorage } from "../../../../utils/utils";
-import React, { useState, useEffect } from "react"; // Importa useState y useEffect
-
-
-
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const TiempoMinutos = () => {
-  const [minutos, setMinutos] = useState(0); // Inicializa el estado con 0
+  const [minutos, setMinutos] = useState(0);
+  const userData = useSelector((state) => state.userSlice.userData);
 
   useEffect(() => {
-    const fetchRegistros = async () => {
+    const fetchRegistros = async (apiKey, idUser) => {
       try {
-        const userData = getUserDataFromLocalStorage();
-        if (userData && userData.apiKey) {
-          const response = await ObtenerRegistro(userData.apiKey, userData.id);
-          console.log("Registros del usuario:", response); 
-          
-          if (response.registros && Array.isArray(response.registros)) {
-            const totalTiempo = response.registros.reduce((sum, item) => sum + item.tiempo, 0);
-            setMinutos(totalTiempo);
-          } else {
-            console.error("Formato de respuesta incorrecto:", response);
-          }
+        const response = await ObtenerRegistro(apiKey, idUser);
+        console.log("Registros del usuario:", response);
+
+        if (response.registros && Array.isArray(response.registros)) {
+          const totalTiempo = response.registros.reduce((sum, item) => sum + item.tiempo, 0);
+          setMinutos(totalTiempo);
+        } else {
+          console.error("Formato de respuesta incorrecto:", response);
         }
       } catch (error) {
         console.error("Error al obtener registros:", error);
       }
     };
-  
-    fetchRegistros();
-  }, []);
-  
+
+    if (userData && userData.apiKey) {
+      fetchRegistros(userData.apiKey, userData.id);
+    }
+  }, [userData]);
 
   return (
     <div className="row text-center">
@@ -39,7 +35,7 @@ const TiempoMinutos = () => {
         <div className={`card stats-info`}>
           <div className="card-body">
             <h2>Tiempo total en minutos</h2>
-            <h3>{minutos}</h3> 
+            <h3>{minutos}</h3>
           </div>
         </div>
       </div>

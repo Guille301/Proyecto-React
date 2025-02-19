@@ -5,6 +5,7 @@ import ToDoList from "./ToDoList/ToDoList";
 import EjercicioModal from "./EjercicioModal/EjercicioModal";
 import { useState } from "react";
 
+
 const Main = ({ toDos, onDeleteToDo, onAddToDo }) => {
   const [showModal, setShowModal] = useState(false);
 

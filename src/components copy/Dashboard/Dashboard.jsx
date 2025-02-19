@@ -1,8 +1,12 @@
 import Main from "./Main/Main";
 import Header from "./Header/Header";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { onLogout } from "../../app/slices/userSlice";
 
-const Dashboard = ({ onLogout }) => {
+const Dashboard = () => {
+  const userData = useSelector((state) => state.userSlice.userData);
+
   const [toDos, setToDos] = useState([
     { id: 1, title: "Lavarse los dientes", completed: true },
     { id: 2, title: "Hacer caso", completed: true },
@@ -20,7 +24,7 @@ const Dashboard = ({ onLogout }) => {
 
   return (
     <div className="container-fluid">
-      <Header onLogout={onLogout}/>
+      <Header/>
       <Main toDos={toDos} onDeleteToDo={_onDelete} onAddToDo={_onAddToDo} />
     </div>
   );
