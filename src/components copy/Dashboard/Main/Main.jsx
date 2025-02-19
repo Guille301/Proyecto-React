@@ -1,5 +1,5 @@
 import ChartContainer from "./ChartContainer/ChartContainer";
-import Stats from "./Stats/Stats";
+import Stats from "./TiempoTotal/TiempoTotal";
 import ToDoList from "./ToDoList/ToDoList";
 import EjercicioModal from "./EjercicioModal/EjercicioModal";
 import { useState } from "react";

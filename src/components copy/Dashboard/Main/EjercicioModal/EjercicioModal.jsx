@@ -62,7 +62,7 @@ const EjercicioModal = ({ onToggleModal, onAddToDo }) => {
 
 
 
-  console.log("Actividades que llegan de la api", actividades);
+  
 
   return (
     <div

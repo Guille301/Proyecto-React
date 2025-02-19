@@ -90,7 +90,9 @@ const agregarActividad = async (tiempo, fecha, idUsuario, apiKey, idActividad) =
     });
 
     if (response.ok) {
+      console.log("Guardado correctamente")
       return response.json(); // Si la respuesta es exitosa, devuelve los datos
+      
     } else {
       const errorData = await response.json(); // Captura el cuerpo de la respuesta en caso de error
       console.log("Error del servidor:", errorData); // Muestra el mensaje de error
@@ -136,5 +138,36 @@ const ObtenerActividades = async (apiKey, idUser) => {
 
 
 
+// Obtener registros de actividades del usuario
 
-export { login, getPaises, registrarse,agregarActividad ,ObtenerActividades};
+const ObtenerRegistro = async (apiKey, idUser) => {
+  try {
+    const response = await fetch(`${BASE_URL}/registros.php?idUsuario=${idUser}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": apiKey,   
+        "iduser": idUser, 
+      },
+    });
+
+    console.log(response);
+
+    if (response.ok) {
+      console.log("Devuelve registros");
+      return response.json();
+    } else {
+      console.log("No entro en registro", response.status);
+      return Promise.reject(`Error: ${response.status}`);
+    }
+  } catch (error) {
+    console.log("No entro2 en registro", error);
+    return Promise.reject("Ha ocurrido un error");
+  }
+};
+
+
+
+
+
+export { login, getPaises, registrarse,agregarActividad ,ObtenerActividades,ObtenerRegistro};
