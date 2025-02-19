@@ -8,6 +8,7 @@ const EjercicioModal = ({ onToggleModal, onAddToDo }) => {
   const inputActividadRef = useRef();
 
   const [actividades, setActividades] = useState([]);
+  const [storedToDos, setStoredToDos] = useState([]);
 
   useEffect(() => {
     const fetchActividades = async () => {
@@ -66,7 +67,6 @@ const EjercicioModal = ({ onToggleModal, onAddToDo }) => {
   };
 
 
-console.log("Guardado en local sotrage",storedToDos);
 
 
   console.log("Actividades que llegan de la api", actividades);
