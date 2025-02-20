@@ -17,6 +17,7 @@ export const userSlice = createSlice({
         },
         onLogout: (state) => {
             state.userData = null;
+            state.ejercicios = [];
             localStorage.removeItem("userId");
             localStorage.removeItem("apiKey");
             localStorage.removeItem("userData");

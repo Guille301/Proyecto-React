@@ -1,10 +1,28 @@
 import ToDoTableRow from "./ToDoTableRow/ToDoTableRow";
 import { ObtenerRegistro } from "../../../../../services/api";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-const ToDoTable = () => {
+import { onLoadEjercicios } from "../../../../../app/slices/userSlice";
 
+const ToDoTable = () => {
   const registros = useSelector((state) => state.userSlice.ejercicios);
+  const userData = useSelector((state) => state.userSlice.userData);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchRegistros = async () => {
+      try {
+        const response = await ObtenerRegistro(userData.apiKey, userData.id);
+        dispatch(onLoadEjercicios(response.registros));
+      } catch (error) {
+        console.error("Error al obtener registros:", error);
+      }
+    };
+
+    if (userData && userData.apiKey) {
+      fetchRegistros();
+    }
+  }, [userData, dispatch]);
 
   return (
     <table className="table table-striped">
