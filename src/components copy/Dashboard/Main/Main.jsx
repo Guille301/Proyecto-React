@@ -6,7 +6,7 @@ import EjercicioModal from "./EjercicioModal/EjercicioModal";
 import { useState } from "react";
 
 
-const Main = ({ toDos, onDeleteToDo, onAddToDo }) => {
+const Main = () => {
   const [showModal, setShowModal] = useState(false);
 
   const _onToggleModal = () => {
@@ -18,9 +18,9 @@ const Main = ({ toDos, onDeleteToDo, onAddToDo }) => {
       <Stats />
       <TiempoDiario />
       <ChartContainer />
-      <ToDoList toDos={toDos} onDeleteToDo={onDeleteToDo} onToggleModal={_onToggleModal}/>
+      <ToDoList onToggleModal={_onToggleModal}/>
       {showModal && (
-        <EjercicioModal onToggleModal={_onToggleModal} onAddToDo={onAddToDo} />
+        <EjercicioModal onToggleModal={_onToggleModal} />
       )}
     </>
   );

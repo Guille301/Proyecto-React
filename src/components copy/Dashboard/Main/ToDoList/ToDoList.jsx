@@ -1,6 +1,6 @@
 import ToDoTable from "./ToDoTable/ToDoTable";
 
-const ToDoList = ({ toDos, onDeleteToDo, onToggleModal }) => {
+const ToDoList = ({onToggleModal }) => {
   return (
     <>
       <div className="row w-100 my-2">
@@ -14,7 +14,7 @@ const ToDoList = ({ toDos, onDeleteToDo, onToggleModal }) => {
         <div className="col-12">
           <div className="card">
             <div className="card-body">
-              <ToDoTable toDos={toDos} onDeleteToDo={onDeleteToDo} />
+              <ToDoTable/>
             </div>
           </div>
         </div>

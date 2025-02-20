@@ -1,23 +1,30 @@
 import ToDoTableRow from "./ToDoTableRow/ToDoTableRow";
-const ToDoTable = ({ toDos, onDeleteToDo }) => {
+import { ObtenerRegistro } from "../../../../../services/api";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+const ToDoTable = () => {
+
+  const registros = useSelector((state) => state.userSlice.ejercicios);
+
   return (
     <table className="table table-striped">
       <thead>
         <tr>
-          <th>#</th>
-          <th>Title</th>
-          <th>Completed?</th>
+          <th>Imagen</th>
+          <th>Título</th>
+          <th>Fecha</th>
+          <th>Minutos</th>
           <th>Delete</th>
         </tr>
       </thead>
       <tbody>
-        {toDos.map((toDo) => (
-          <ToDoTableRow
-            key={toDo.id}
-            id={toDo.id}
-            title={toDo.title}
-            completed={toDo.completed}
-            onDeleteToDo={onDeleteToDo}
+        {registros.map((r) => (
+          <ToDoTableRow  
+            key={r.id}
+            id={r.id}
+            idActividad={r.idActividad}
+            tiempo={r.tiempo}
+            fecha={r.fecha}
           />
         ))}
       </tbody>

@@ -33,6 +33,7 @@ export const userSlice = createSlice({
             const { payload } = action;
             const filteredEjercicios = state.ejercicios.filter((e) => e.id !== payload);
             state.ejercicios = filteredEjercicios;
+            console.log("Ejercicios filtrados:", filteredEjercicios);
         },
     },
 });

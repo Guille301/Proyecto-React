@@ -74,7 +74,7 @@ const registrarse = async (username, password, pais) => {
 };
 
 // Agregar actividad
-const agregarActividad = async (tiempo, fecha, idUsuario, apiKey, idActividad) => {
+const agregarRegistro = async (tiempo, fecha, idUsuario, apiKey, idActividad) => {
   try {
     const response = await fetch(`${BASE_URL}/registros.php`, {
       method: "POST",
@@ -168,8 +168,36 @@ const ObtenerRegistro = async (apiKey, idUser) => {
   }
 };
 
+// Eliminar registro
+
+const EliminarRegistro = async (idRegistro, apiKey, idUser) => {
+  try {
+    const response = await fetch(`${BASE_URL}/registros.php?idRegistro=${idRegistro}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": apiKey,   
+        "iduser": idUser, 
+      },
+    });
+
+    console.log(response);
+
+    if (response.ok) {
+      console.log("Registro eliminado");
+      return response.json();
+    } else {
+      console.log("No entro en eliminar", response.status);
+      return Promise.reject(`Error: ${response.status}`);
+    }
+  } catch (error) {
+    console.log("No entro en eliminar", error);
+    return Promise.reject("Ha ocurrido un error");
+  }
+}
 
 
 
 
-export { login, getPaises, registrarse,agregarActividad ,ObtenerActividades,ObtenerRegistro};
+
+export { login, getPaises, registrarse,agregarRegistro ,ObtenerActividades,ObtenerRegistro, EliminarRegistro};

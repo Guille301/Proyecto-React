@@ -1,6 +1,8 @@
 import { useRef, useState, useEffect } from "react";
-import { agregarActividad, ObtenerActividades } from "../../../../services/api";
+import { agregarRegistro, ObtenerActividades, ObtenerRegistro } from "../../../../services/api";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { onLoadEjercicios } from "../../../../app/slices/userSlice";
 
 const EjercicioModal = ({ onToggleModal, onAddToDo }) => {
   const inputTiempoRef = useRef();
@@ -15,7 +17,7 @@ const EjercicioModal = ({ onToggleModal, onAddToDo }) => {
     const fetchActividades = async (apiKey, idUser) => {
       try {
         const response = await ObtenerActividades(apiKey, idUser);
-        dispatcher(setActividades(response.actividades));
+        setActividades(response.actividades);
       } catch (error) {
         console.error("Error al obtener actividades:", error);
       }
@@ -39,15 +41,10 @@ const EjercicioModal = ({ onToggleModal, onAddToDo }) => {
     try {
       if (userData) {
         const { id, apiKey } = userData;
-        const response = await agregarActividad(tiempo, fecha, id, apiKey, actividad);
-
-        const newActividad= {
-          id: response.id,
-          title: response.nombre,
-          
-        };
-
-        onAddToDo(newToDo);
+        await agregarRegistro(tiempo, fecha, id, apiKey, actividad);
+        const response = await ObtenerRegistro(apiKey, id);
+        console.log("Registros del usuario:", response.registros);
+        dispatcher(onLoadEjercicios(response.registros));
         onToggleModal();
       }
     } catch (error) {
