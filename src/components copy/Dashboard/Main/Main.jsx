@@ -3,6 +3,8 @@ import TiempoDiario from "./TiempoDiario/TiempoDiario";
 import ToDoList from "./ToDoList/ToDoList";
 import EjercicioModal from "./EjercicioModal/EjercicioModal";
 import Graficos from "./ChartContainer/ChartContainer"
+import CargarDatos from "../../../app/CargarDatos"; // Ajusta la ruta según tu estructura
+
 import { useState } from "react";
 
 
@@ -18,6 +20,15 @@ const Main = () => {
       <Stats />
       <TiempoDiario />
       <Graficos/>
+
+
+
+      <CargarDatos/>
+
+
+
+
+
       <ToDoList onToggleModal={_onToggleModal}/>
       {showModal && (
         <EjercicioModal onToggleModal={_onToggleModal} />

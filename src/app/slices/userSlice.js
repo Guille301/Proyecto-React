@@ -38,10 +38,20 @@ export const userSlice = createSlice({
             state.ejercicios = filteredEjercicios;
             console.log("Ejercicios filtrados:", filteredEjercicios);
         },
+         // Agregamos un reducer para actualizar toDos
+         onLoadToDos: (state, action) => {
+            const { payload } = action;
+            state.toDos = payload;
+        },
+        // Agregamos un reducer para actualizar categories
+        onLoadCategories: (state, action) => {
+            const { payload } = action;
+            state.categories = payload;
+        }
     },
 });
 
-export const { onLogin, onLogout, onLoadEjercicios, onAddEjercicio, onDeleteEjercicio }
+export const { onLogin, onLogout, onLoadEjercicios, onAddEjercicio, onDeleteEjercicio,onLoadToDos,onLoadCategories }
     = userSlice.actions;
 
 export default userSlice.reducer;

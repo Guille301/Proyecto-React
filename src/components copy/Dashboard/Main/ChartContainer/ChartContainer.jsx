@@ -8,7 +8,7 @@ const ChartContainer = () => {
       <div className="col-md-8">
         <div className="card">
           <div className="card-body">
-            <h5>Gráfico barras</h5>
+            <h5>Gráfico pastel</h5>
               <div className="placeholder">
               <Pastel/>
               </div>
@@ -18,7 +18,7 @@ const ChartContainer = () => {
       <div className="col-md-4">
         <div className="card">
           <div className="card-body">
-            <h5>Gráfico torta</h5>
+            <h5>Gráfico barras</h5>
             <div className="placeholder">GRAFICO AQUI</div>
           </div>
         </div>
