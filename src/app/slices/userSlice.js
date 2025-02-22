@@ -5,6 +5,8 @@ export const userSlice = createSlice({
     name: "user",
     initialState: {
         userData: null,
+        categories: [],
+        toDos: [],
         ejercicios: [],
     },
     reducers: {

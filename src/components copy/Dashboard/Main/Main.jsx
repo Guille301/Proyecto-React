@@ -1,8 +1,8 @@
-import ChartContainer from "./ChartContainer/ChartContainer";
 import Stats from "./TiempoTotal/TiempoTotal";
 import TiempoDiario from "./TiempoDiario/TiempoDiario";
 import ToDoList from "./ToDoList/ToDoList";
 import EjercicioModal from "./EjercicioModal/EjercicioModal";
+import Graficos from "./ChartContainer/ChartContainer"
 import { useState } from "react";
 
 
@@ -17,7 +17,7 @@ const Main = () => {
     <>
       <Stats />
       <TiempoDiario />
-      <ChartContainer />
+      <Graficos/>
       <ToDoList onToggleModal={_onToggleModal}/>
       {showModal && (
         <EjercicioModal onToggleModal={_onToggleModal} />
