@@ -1,28 +1,37 @@
-import { ObtenerRegistro } from "../../../../../services/api";
 import React, { useState, useEffect } from "react";
 import ReactApexChart from 'react-apexcharts'
 import { useSelector } from "react-redux";
 
 const Pastel = () => {
-  const categories = useSelector((state) => state.userSlice.categories);
+   // Asegúrate de que categories y toDos sean arrays
+   const categories = useSelector((state) => state.userSlice.categories);
   const toDos = useSelector((state) => state.userSlice.toDos);
-  
-  
-  const _getCompletedCount = () => {
-    return toDos.filter((todo) => todo.completed).length;
-  };
-  const _getInCompletedCount = () => {
-    return toDos.filter((todo) => !todo.completed).length;
-  };
+
+  console.log("Categories",categories);
+
+  console.log("toDos",toDos);
+
+   // Extraer tiempo para los valores (series)
+   const series = toDos.map((item) => item.tiempo);
+  // Extraer idActividad para las etiquetas (labels)
+  const labels = categories.map((item) => `Actividad ${item.idActividad}`);
+
+ 
+
+
+  console.log("Datos de labels",labels);
+
+  console.log("Datos de series",series);
+
 
   const state = {
-    series: [_getCompletedCount(), _getInCompletedCount()], // IMPORTANTE!!
+    series: series, // IMPORTANTE!!
     options: {
       chart: {
         width: 380,
         type: "pie",
       },
-      labels: categories, // IMPORTANTE!!
+      labels: labels, // IMPORTANTE!!
       responsive: [
         {
           breakpoint: 480,

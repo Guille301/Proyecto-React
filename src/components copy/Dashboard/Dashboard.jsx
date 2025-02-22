@@ -2,7 +2,9 @@ import Main from "./Main/Main";
 import Header from "./Header/Header";
 import { useEffect } from "react";
 import { useSelector,useDispatch } from "react-redux";
-import { onLogout,onLoadToDos } from "../../app/slices/userSlice";
+import { onLogout,onLoadToDos,onLoadCategories } from "../../app/slices/userSlice";
+import { ObtenerRegistro } from "../../services/api";
+ 
 
 const Dashboard = () => {
   const userData = useSelector((state) => state.userSlice.userData);
@@ -11,9 +13,11 @@ const Dashboard = () => {
   useEffect(() => {
     async function fetchData() {
       if (userData) {
-        const { id } = userData;
-        const response = await getToDos(id);
+        const { id,apiKey } = userData;
+        const response = await ObtenerRegistro(apiKey,id);
         dispatcher(onLoadToDos(response));
+        dispatcher(onLoadCategories(response));
+
       }
     }
     fetchData();
