@@ -2,18 +2,19 @@ import Main from "./Main/Main";
 import Header from "./Header/Header";
 import { useEffect } from "react";
 import { useSelector,useDispatch } from "react-redux";
-import { onLogout,onLoadToDos,onLoadCategories,onLoadFechas,onLoadMinutosFechas} from "../../app/slices/userSlice";
+import { onLogin, onLogout,onLoadToDos,onLoadCategories,onLoadFechas,onLoadMinutosFechas} from "../../app/slices/userSlice";
 import { ObtenerRegistro } from "../../services/api";
  
 
 const Dashboard = () => {
   const userData = useSelector((state) => state.userSlice.userData);
+  const checkUser = JSON.parse(localStorage.getItem("userData"));
   const dispatcher = useDispatch();
 
   useEffect(() => {
     async function fetchData() {
-      if (userData) {
-        const { id,apiKey } = userData;
+      if (checkUser) {
+        dispatcher(onLogin(checkUser))
         const response = await ObtenerRegistro(apiKey,id);
 
         console.log("Respuesta de la API", response);

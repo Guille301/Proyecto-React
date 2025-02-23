@@ -4,7 +4,7 @@ import { getPaises, registrarse } from "../../services/api";
 import 'bootstrap/dist/css/bootstrap.css';
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {onLogin} from "../../app/slices/userSlice";
+import { onLogin } from "../../app/slices/userSlice";
 
 const RegisterPage = () => {
     const inputUserNameRef = useRef();
@@ -15,14 +15,15 @@ const RegisterPage = () => {
     const [paisesOption, setPaisesOption] = useState(null);
     const navigateTo = useNavigate();
 
-    const userData = useSelector((state) => state.userSlice.userData);
-  const dispatcher = useDispatch();
 
-    /* useEffect(() => {
-        if (localStorage.getItem("userId")) {
-          navigateTo("/dashboard")
+    const checkUser = localStorage.getItem("userData");
+    const dispatcher = useDispatch();
+
+    useEffect(() => {
+        if (checkUser) {
+            navigateTo("/dashboard")
         }
-      }, [userData]) *///autologin -> lleva al dashboard
+    }, [checkUser])//autologin -> lleva al dashboard
 
     useEffect(() => {
         async function fetchData() {

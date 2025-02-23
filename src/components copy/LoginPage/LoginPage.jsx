@@ -6,10 +6,10 @@ import logo from "../../img/logo.jpg"
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import {onLogin} from "../../app/slices/userSlice";
+import { onLogin } from "../../app/slices/userSlice";
 
 const LoginPage = () => {
-  const userData = useSelector((state) => state.userSlice.userData);
+  const checkUser = localStorage.getItem("userData");
   const dispatcher = useDispatch();
 
   const inputUserNameRef = useRef();
@@ -19,11 +19,11 @@ const LoginPage = () => {
   const navigateTo = useNavigate();
 
   useEffect(() => {
-    if (userData) {
+    if (checkUser) {
       navigateTo("/dashboard")
     }
-  }, [userData])//autologin -> lleva al dashboard
-  
+  }, [checkUser])//autologin -> lleva al dashboard
+
 
   const _onHandleClick = async (event) => {
     event.preventDefault(); // Evita que el formulario se envíe
@@ -33,12 +33,15 @@ const LoginPage = () => {
         inputPassRef.current.value
       );
       setMensajeError(null);
+      localStorage.setItem("userId", JSON.stringify(response.id)); // Guarda el ID del usuario
+      localStorage.setItem("apiKey", JSON.stringify(response.apiKey));
+      localStorage.setItem("userData", JSON.stringify(response));
       dispatcher(onLogin(response))// Llama a la función onLogin con la respuesta
     } catch (error) {
       setMensajeError(error);
     }
   };
-  
+
 
   const _onHandleChange = () => {
     if (
@@ -55,7 +58,7 @@ const LoginPage = () => {
     <div className="login-container">
       <div className="text-center logo-container">
         <figure className="img-fluid">
-        <img src={logo} width="90" alt="Logo" />
+          <img src={logo} width="90" alt="Logo" />
         </figure>
       </div>
       <h1 className="text-center">Login</h1>
@@ -113,7 +116,7 @@ const LoginPage = () => {
         >
           Login
         </button>
-        {mensajeError ? <p className="alert alert-warning">{mensajeError}</p> : <p/>}
+        {mensajeError ? <p className="alert alert-warning">{mensajeError}</p> : <p />}
       </form>
       <p className="text-center mt-4">
         ¿No tenés cuenta? <Link to="/register">¡Registrate!</Link>

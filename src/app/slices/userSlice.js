@@ -17,9 +17,6 @@ export const userSlice = createSlice({
         onLogin: (state, action) => {
             const { payload } = action;
             state.userData = payload;
-            localStorage.setItem("userId", JSON.stringify(payload.id)); // Guarda el ID del usuario
-            localStorage.setItem("apiKey", JSON.stringify(payload.apiKey));
-            localStorage.setItem("userData", JSON.stringify(payload));
         },
         onLogout: (state) => {
             state.userData = null;
