@@ -8,7 +8,7 @@ const ChartContainer = () => {
       <div className="col-md-8">
         <div className="card">
           <div className="card-body">
-            <h5>Gráfico pastel</h5>
+            <h5>Gráfico de minutos por actividad</h5>
               <div className="placeholder">
               <Pastel/>
               </div>

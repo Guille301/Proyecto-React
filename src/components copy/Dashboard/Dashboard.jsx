@@ -15,8 +15,19 @@ const Dashboard = () => {
       if (userData) {
         const { id,apiKey } = userData;
         const response = await ObtenerRegistro(apiKey,id);
-        dispatcher(onLoadToDos(response));
-        dispatcher(onLoadCategories(response));
+
+        console.log("Respuesta de la API", response);
+
+        
+        const registros = response.registros || []; 
+
+        
+        const seriesData = registros.map((item) => item.tiempo); 
+        dispatcher(onLoadToDos(seriesData));
+
+        
+        const labelsData = registros.map((item) => `Actividad ${item.idActividad}`); 
+        dispatcher(onLoadCategories(labelsData));
 
       }
     }

@@ -11,27 +11,15 @@ const Pastel = () => {
 
   console.log("toDos",toDos);
 
-   // Extraer tiempo para los valores (series)
-   const series = toDos.map((item) => item.tiempo);
-  // Extraer idActividad para las etiquetas (labels)
-  const labels = categories.map((item) => `Actividad ${item.idActividad}`);
-
- 
-
-
-  console.log("Datos de labels",labels);
-
-  console.log("Datos de series",series);
-
 
   const state = {
-    series: series, // IMPORTANTE!!
+    series: toDos, // IMPORTANTE!!
     options: {
       chart: {
         width: 380,
         type: "pie",
       },
-      labels: labels, // IMPORTANTE!!
+      labels: categories, // IMPORTANTE!!
       responsive: [
         {
           breakpoint: 480,
