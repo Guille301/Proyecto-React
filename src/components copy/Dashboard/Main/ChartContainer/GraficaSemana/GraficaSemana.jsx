@@ -2,79 +2,98 @@ import React from "react";
 import ReactApexChart from 'react-apexcharts';
 import { useSelector } from "react-redux";
 
-const ApexChart = () => {
-  const toDos = useSelector((state) => state.userSlice.toDos) || [];
+const Barras = () => {
+  const Fechas = useSelector((state) => state.userSlice.Fechas);
+  const MinutosFechas = useSelector((state) => state.userSlice.MinutosFechas);
 
-  // Función para obtener el nombre del día de la semana
-  const getDayName = (dateString) => {
-    const days = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
-    const date = new Date(dateString);
-    return days[date.getDay()];
-  };
+  console.log("Fechas", Fechas);
+  console.log("Minutos fechas", MinutosFechas);
 
-  // Procesar los datos para agrupar minutos por día de la semana
-  const processData = () => {
-    const minutesByDay = {};
-
-    toDos.forEach((item) => {
-      const dayName = getDayName(item.fecha); // Obtener el nombre del día
-      if (!minutesByDay[dayName]) {
-        minutesByDay[dayName] = 0; // Inicializar el contador de minutos para el día
-      }
-      minutesByDay[dayName] += item.tiempo; // Sumar los minutos
-    });
-
-    // Convertir el objeto en un array de { x: día, y: minutos }
-    return Object.keys(minutesByDay).map((day) => ({
-      x: day,
-      y: minutesByDay[day],
-    }));
-  };
-
-  // Datos procesados para la gráfica
-  const series = [{
-    name: "Minutos",
-    data: processData(),
-  }];
-
-  // Opciones de la gráfica
-  const options = {
-    chart: {
-      type: 'bar',
-      height: 380,
-      background: "white", // Fondo blanco
-    },
-    xaxis: {
-      type: 'category',
-      title: {
-        text: 'Día de la semana',
+  const [state, setState] = React.useState({
+    series: [{
+      name: 'Minutos',
+      data: MinutosFechas, // Array de números
+    }],
+    options: {
+      chart: {
+        height: 350,
+        type: 'bar',
+        background: "#FFFFFF", // Fondo blanco
       },
-    },
-    yaxis: {
-      title: {
-        text: 'Minutos',
+      plotOptions: {
+        bar: {
+          borderRadius: 10,
+          dataLabels: {
+            position: 'top', // top, center, bottom
+          },
+        }
       },
-    },
-    title: {
-      text: 'Minutos registrados por día de la semana',
-    },
-    tooltip: {
-      y: {
+      dataLabels: {
+        enabled: true,
         formatter: function (val) {
-          return `${val} minutos`;
+          return val + " min"; // Mostrar los minutos en las etiquetas
         },
+        offsetY: -20,
+        style: {
+          fontSize: '12px',
+          colors: ["#000000"] // Color negro para las etiquetas de las barras
+        }
       },
+      xaxis: {
+        categories: Fechas, // Array de strings
+        position: 'bottom', // Mover las etiquetas del eje X hacia abajo
+        axisBorder: {
+          show: false
+        },
+        axisTicks: {
+          show: false
+        },
+        labels: {
+          style: {
+            colors: "#000000", // Color negro para las etiquetas del eje X
+          }
+        },
+        tooltip: {
+          enabled: true,
+        }
+      },
+      yaxis: {
+        axisBorder: {
+          show: false
+        },
+        axisTicks: {
+          show: false,
+        },
+        labels: {
+          show: true, // Mostrar etiquetas del eje Y
+          style: {
+            colors: "#000000", // Color negro para las etiquetas del eje Y
+          },
+          formatter: function (val) {
+            return val + " min"; // Formato de las etiquetas del eje Y
+          }
+        }
+      },
+      title: {
+        text: 'Cantidad de minutos en la semana',
+        floating: true,
+        offsetY: 330,
+        align: 'center',
+        style: {
+          color: '#000000' // Color negro para el título
+        }
+      }
     },
-  };
+  });
 
   return (
     <div>
       <div id="chart">
-        <ReactApexChart options={options} series={series} type="bar" height={380} />
+        <ReactApexChart options={state.options} series={state.series} type="bar" height={350} />
       </div>
       <div id="html-dist"></div>
     </div>
   );
 };
 
-export default ApexChart;
+export default Barras;

@@ -8,7 +8,10 @@ export const userSlice = createSlice({
         categories: [],
         toDos: [],
         ejercicios: [],
-        Dias: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+        
+        Fechas: [],
+        MinutosFechas: [],
+
     },
     reducers: {
         onLogin: (state, action) => {
@@ -48,11 +51,24 @@ export const userSlice = createSlice({
         onLoadCategories: (state, action) => {
             const { payload } = action;
             state.categories = payload;
+        },
+
+        //Cargo las fechas 
+        onLoadFechas: (state, action) => {
+            const { payload } = action;
+            state.Fechas = payload;
+        },
+
+        onLoadMinutosFechas: (state, action) => {
+            const { payload } = action;
+            state.MinutosFechas = payload;
         }
+
+
     },
 });
 
-export const { onLogin, onLogout, onLoadEjercicios, onAddEjercicio, onDeleteEjercicio,onLoadToDos,onLoadCategories }
+export const { onLogin, onLogout, onLoadEjercicios, onAddEjercicio, onDeleteEjercicio,onLoadToDos,onLoadCategories,onLoadFechas,onLoadMinutosFechas }
     = userSlice.actions;
 
 export default userSlice.reducer;
