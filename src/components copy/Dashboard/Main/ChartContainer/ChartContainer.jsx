@@ -1,4 +1,5 @@
 import Pastel from "./GraficaMinutos/index";
+import Barras from "./GraficaSemana/index";
 
 
 
@@ -19,7 +20,9 @@ const ChartContainer = () => {
         <div className="card">
           <div className="card-body">
             <h5>Gráfico barras</h5>
-            <div className="placeholder">GRAFICO AQUI</div>
+            <div className="placeholder">
+              <Barras/>
+            </div>
           </div>
         </div>
       </div>

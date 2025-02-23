@@ -8,6 +8,7 @@ export const userSlice = createSlice({
         categories: [],
         toDos: [],
         ejercicios: [],
+        Dias: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
     },
     reducers: {
         onLogin: (state, action) => {
