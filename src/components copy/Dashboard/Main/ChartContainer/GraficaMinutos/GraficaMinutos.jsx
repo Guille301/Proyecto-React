@@ -7,7 +7,6 @@ const Pastel = () => {
    const categories = useSelector((state) => state.userSlice.categories);
   const toDos = useSelector((state) => state.userSlice.toDos);
 
-  
 
 
   const state = {

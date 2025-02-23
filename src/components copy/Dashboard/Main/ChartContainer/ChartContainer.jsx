@@ -9,7 +9,7 @@ const ChartContainer = () => {
       <div className="col-md-8">
         <div className="card">
           <div className="card-body">
-            <h5>Gráfico de minutos por actividad</h5>
+            <h5>Gráfico de sesiones por actividad</h5>
               <div className="placeholder">
               <Pastel/>
               </div>
@@ -19,7 +19,7 @@ const ChartContainer = () => {
       <div className="col-md-4">
         <div className="card">
           <div className="card-body">
-            <h5>Gráfico barras</h5>
+            <h5>Gráfico de minutos de los ultimos siete dias</h5>
             <div className="placeholder">
               <Barras/>
             </div>
