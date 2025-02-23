@@ -7,6 +7,8 @@ const Barras = () => {
   const MinutosFechas = useSelector((state) => state.userSlice.MinutosFechas);
 
 
+  console.log("Fechas",Fechas)
+  console.log("Minutos de las fechas", MinutosFechas)
 
   const [state, setState] = React.useState({
     series: [{
