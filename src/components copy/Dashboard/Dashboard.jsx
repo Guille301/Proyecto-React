@@ -14,7 +14,9 @@ const Dashboard = () => {
   useEffect(() => {
     async function fetchData() {
       if (checkUser) {
-        dispatcher(onLogin(checkUser))
+        dispatcher(onLogin(checkUser));
+        const id = checkUser.id;
+        const apiKey = checkUser.apiKey;
         const response = await ObtenerRegistro(apiKey,id);
 
         console.log("Respuesta de la API", response);
