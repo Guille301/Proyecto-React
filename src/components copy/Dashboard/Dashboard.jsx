@@ -24,29 +24,15 @@ const Dashboard = () => {
         
         const registros = response.registros || []; 
 
-        //Grafica Sesiones por actividad
+       
 
-        //Registro de cantidad de sesiones
-        const sesionesPorActividad = {};
-        registros.forEach((item) => {
-          if (!sesionesPorActividad[item.idActividad]) {
-            sesionesPorActividad[item.idActividad] = 0;
-          }
-          sesionesPorActividad[item.idActividad] += 1; // Contar sesiones
-        });
-
-        const seriesData = Object.values(sesionesPorActividad); // Cantidad de sesiones por actividad
-        dispatcher(onLoadToDos(seriesData));
+       
 
 
 
-        //Registor de actividades
-        // Registor de actividades (sin duplicados)
-        const uniqueActivities = new Set(registros.map((item) => `${item.idActividad}`)); 
-        const labelsData = Array.from(uniqueActivities); 
 
-        dispatcher(onLoadCategories(labelsData));
 
+        
 
 
         //Grafica Semana

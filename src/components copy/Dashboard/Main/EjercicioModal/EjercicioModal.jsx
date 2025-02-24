@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { agregarRegistro, ObtenerActividades, ObtenerRegistro } from "../../../../services/api";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { onLoadEjercicios } from "../../../../app/slices/userSlice";
+import { onLoadEjercicios, onLoadCategories } from "../../../../app/slices/userSlice";
 
 const EjercicioModal = ({ onToggleModal, onAddToDo }) => {
   const inputTiempoRef = useRef();
