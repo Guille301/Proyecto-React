@@ -42,7 +42,7 @@ const Dashboard = () => {
 
         //Registor de actividades
         // Registor de actividades (sin duplicados)
-        const uniqueActivities = new Set(registros.map((item) => `Actividad ${item.idActividad}`)); 
+        const uniqueActivities = new Set(registros.map((item) => `${item.idActividad}`)); 
         const labelsData = Array.from(uniqueActivities); 
 
         dispatcher(onLoadCategories(labelsData));
@@ -50,7 +50,7 @@ const Dashboard = () => {
 
 
         //Grafica Semana
-         // 1. Generar las fechas de los últimos 7 días (incluyendo hoy)
+         // generar fechasd de los ultimos 7 diass
          const fechas = [];
          for (let i = 6; i >= 0; i--) {
            const fecha = new Date();
@@ -58,14 +58,14 @@ const Dashboard = () => {
            fechas.push(fecha.toISOString().split("T")[0]); // Formato YYYY-MM-DD
          }
  
-         // 2. Filtrar los minutos correspondientes a esas fechas
+         // Filtrar los minutos correspondientes
          const minutosPorFecha = fechas.map((fecha) => {
            const registrosDelDia = registros.filter((item) => item.fecha === fecha);
            const totalMinutos = registrosDelDia.reduce((sum, item) => sum + item.tiempo, 0);
            return totalMinutos;
          });
  
-         // 3. Despachar las acciones para cargar las fechas y los minutos
+         // Agrego las fechas y los minutos al store
          dispatcher(onLoadFechas(fechas));
          dispatcher(onLoadMinutosFechas(minutosPorFecha));
 

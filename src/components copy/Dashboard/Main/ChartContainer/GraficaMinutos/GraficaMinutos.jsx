@@ -7,7 +7,7 @@ const Pastel = () => {
    const categories = useSelector((state) => state.userSlice.categories);
   const toDos = useSelector((state) => state.userSlice.toDos);
 
-
+  
 
   const state = {
     series: toDos, // IMPORTANTE!!
@@ -36,7 +36,7 @@ const Pastel = () => {
     
 
     return (
-      <div>
+      <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px' }}>
         <div id="chart">
             <ReactApexChart 
             options={state.options} 

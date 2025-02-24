@@ -35,7 +35,7 @@ const TiempoDiario = () => {
   return (
     <div className="row text-center desing">
       <div className="col-md-4 desing">
-        <div className={`card stats-info`}>
+        <div className={`card design`}>
           <div className="card-body desing">
             <h2>Tiempo diario en minutos</h2>
             <h3>{minutosDiarios}</h3>
