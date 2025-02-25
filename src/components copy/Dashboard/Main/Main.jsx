@@ -1,9 +1,10 @@
-import Stats from "./TiempoTotal/TiempoTotal";
-import TiempoDiario from "./TiempoDiario/TiempoDiario";
+
 import ToDoList from "./ToDoList/ToDoList";
 import EjercicioModal from "./EjercicioModal/EjercicioModal";
 import Graficos from "./ChartContainer/ChartContainer"
 import Evolucion from "./EvolucionPersonal/EvolucionPersonal"
+import InformeDeTiempo from "../Main/InformeDeTiempo/InformeDeTiempo"
+
 
 import { useState } from "react";
 
@@ -17,8 +18,9 @@ const Main = () => {
 
   return (
     <>
-      <Stats />
-      <TiempoDiario />
+      
+
+      <InformeDeTiempo/>
       <Graficos/>
       <Evolucion/>
       <ToDoList onToggleModal={_onToggleModal}/>

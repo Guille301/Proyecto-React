@@ -1,0 +1,7 @@
+/* styleTotal.css */
+.desing {
+  display: block; /* Asegúrate de que el contenedor sea visible */
+  text-align: center; /* Centra el texto */
+  color: black; /* Asegúrate de que el color del texto sea visible */
+  background-color: white;
+}
