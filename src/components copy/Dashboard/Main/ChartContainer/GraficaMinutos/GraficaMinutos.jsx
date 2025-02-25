@@ -6,7 +6,7 @@ import { ObtenerActividades} from "../../../../../services/api";
 
 
 const Pastel = () => {
-   // Asegúrate de que categories y toDos sean arrays
+   
    const categories = useSelector((state) => state.userSlice.categories);
   const toDos = useSelector((state) => state.userSlice.toDos);
   const registros = useSelector((state) => state.userSlice.ejercicios);
@@ -47,21 +47,20 @@ const Pastel = () => {
     if (!sesionesPorActividad[item.idActividad]) {
       sesionesPorActividad[item.idActividad] = 0;
     }
-    sesionesPorActividad[item.idActividad] += 1; // Contar sesiones
+    sesionesPorActividad[item.idActividad] += 1; 
   });
 
-  const seriesData = Object.values(sesionesPorActividad); // Cantidad de sesiones por actividad
+  const seriesData = Object.values(sesionesPorActividad); 
 
 
 
-  //Registor de actividades
-  // Registor de actividades (sin duplicados)
+ 
   const uniqueActivities = new Set(registros.map((item) => item.idActividad)); 
   const labelsData = Array.from(uniqueActivities).map((idActividad) => getTitulo(idActividad)); 
 
 
 
-//{1,45} -> map -> [getTitulo({s.idActividad)},45] 
+
 
 
   
@@ -77,7 +76,7 @@ const Pastel = () => {
         width: 380,
         type: "pie",
       },
-      labels: labelsData, // IMPORTANTE!!
+      labels: labelsData, 
       responsive: [
         {
           breakpoint: 480,

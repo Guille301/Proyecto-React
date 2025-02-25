@@ -5,55 +5,53 @@ import { useSelector } from "react-redux";
 const Barras = () => {
   const registros = useSelector((state) => state.userSlice.ejercicios);
 
-  // Generar fechas de los últimos 7 días
+  
   const fechas = [];
   for (let i = 6; i >= 0; i--) {
     const fecha = new Date();
     fecha.setDate(fecha.getDate() - i);
-    fechas.push(fecha.toISOString().split("T")[0]); // Formato YYYY-MM-DD
+    fechas.push(fecha.toISOString().split("T")[0]); 
   }
 
-  // Calcular minutos por fecha
   const minutosPorFecha = fechas.map((fecha) => {
     const registrosDelDia = registros.filter((item) => item.fecha === fecha);
     const totalMinutos = registrosDelDia.reduce((sum, item) => sum + item.tiempo, 0);
     return totalMinutos;
   });
 
-  // Estado del gráfico
   const [state, setState] = useState({
     series: [{
       name: 'Minutos',
-      data: minutosPorFecha, // Array de números
+      data: minutosPorFecha, 
     }],
     options: {
       chart: {
         height: 350,
         type: 'bar',
-        background: "#FFFFFF", // Fondo blanco
+        background: "#FFFFFF", 
       },
       plotOptions: {
         bar: {
           borderRadius: 10,
           dataLabels: {
-            position: 'top', // top, center, bottom
+            position: 'top', 
           },
         }
       },
       dataLabels: {
         enabled: true,
         formatter: function (val) {
-          return val + " min"; // Mostrar los minutos en las etiquetas
+          return val + " min"; 
         },
         offsetY: -20,
         style: {
           fontSize: '12px',
-          colors: ["#000000"] // Color negro para las etiquetas de las barras
+          colors: ["#000000"] 
         }
       },
       xaxis: {
-        categories: fechas, // Array de strings
-        position: 'bottom', // Mover las etiquetas del eje X hacia abajo
+        categories: fechas, 
+        position: 'bottom', 
         axisBorder: {
           show: false
         },
@@ -62,7 +60,7 @@ const Barras = () => {
         },
         labels: {
           style: {
-            colors: "#000000", // Color negro para las etiquetas del eje X
+            colors: "#000000", 
           }
         },
         tooltip: {
@@ -77,12 +75,12 @@ const Barras = () => {
           show: false,
         },
         labels: {
-          show: true, // Mostrar etiquetas del eje Y
+          show: true, 
           style: {
-            colors: "#000000", // Color negro para las etiquetas del eje Y
+            colors: "#000000", 
           },
           formatter: function (val) {
-            return val + " min"; // Formato de las etiquetas del eje Y
+            return val + " min"; 
           }
         }
       },
@@ -92,13 +90,13 @@ const Barras = () => {
         offsetY: 330,
         align: 'center',
         style: {
-          color: '#000000' // Color negro para el título
+          color: '#000000' 
         }
       }
     },
   });
 
-  // Actualizar el estado cuando cambien los registros
+  
   useEffect(() => {
     setState((prevState) => ({
       ...prevState,

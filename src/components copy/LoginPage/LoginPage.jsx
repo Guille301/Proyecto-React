@@ -22,21 +22,21 @@ const LoginPage = () => {
     if (checkUser) {
       navigateTo("/dashboard")
     }
-  }, [checkUser])//autologin -> lleva al dashboard
+  }, [checkUser])
 
 
   const _onHandleClick = async (event) => {
-    event.preventDefault(); // Evita que el formulario se envíe
+    event.preventDefault(); 
     try {
       const response = await login(
         inputUserNameRef.current.value,
         inputPassRef.current.value
       );
       setMensajeError(null);
-      localStorage.setItem("userId", JSON.stringify(response.id)); // Guarda el ID del usuario
+      localStorage.setItem("userId", JSON.stringify(response.id)); 
       localStorage.setItem("apiKey", JSON.stringify(response.apiKey));
       localStorage.setItem("userData", JSON.stringify(response));
-      dispatcher(onLogin(response))// Llama a la función onLogin con la respuesta
+      dispatcher(onLogin(response))
     } catch (error) {
       setMensajeError(error);
     }
@@ -66,7 +66,7 @@ const LoginPage = () => {
         Ingresá con tu mail y contraseña.
       </p>
       <form>
-        {/** Alert here */}
+        
         <div className="form-group">
           <label htmlFor="email">Username</label>
           <div className="input-group">

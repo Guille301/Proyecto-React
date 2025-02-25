@@ -33,20 +33,7 @@ const ToDoTableRow = ({ id, idActividad, tiempo, fecha }) => {
     return actividad ? actividad.imagen : "Actividad no encontrada";
   };
 
-  /* useEffect(() => {
-    const fetchActividades = async () => {
-      try {
-        const response = await ObtenerActividades(apiKey, idUser);
-        setActividades(response.actividades);
-      } catch (error) {
-        console.error("Error al obtener actividades:", error);
-      }
-    };
 
-    if (apiKey && idUser) {
-      fetchActividades();
-    }
-  }, [apiKey, idUser]); */
 
   useEffect(() => {
     if (actividades.length > 0) {
