@@ -10,10 +10,10 @@ const Tiempo = () => {
         <div className="card">
           <div className="card-body">
             <h5>Tiempo diario</h5>
-              <div className="placeholder">
-              <TiempoDiario/>
-              </div>
+            <div className="placeholder">
+              <TiempoDiario />
             </div>
+          </div>
         </div>
       </div>
       <div className="col-md-4">
@@ -21,7 +21,7 @@ const Tiempo = () => {
           <div className="card-body">
             <h5>Tiempo total</h5>
             <div className="placeholder">
-              <TiempoTotal/>
+              <TiempoTotal />
             </div>
           </div>
         </div>

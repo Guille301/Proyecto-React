@@ -2,6 +2,7 @@ import { ObtenerRegistro } from "../../../../../services/api";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
+
 const TiempoDiario = () => {
   const [minutosDiarios, setMinutosDiarios] = useState(0);
   const userData = useSelector((state) => state.userSlice.userData);
