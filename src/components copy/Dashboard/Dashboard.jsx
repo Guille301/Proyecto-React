@@ -37,23 +37,10 @@ const Dashboard = () => {
 
         //Grafica Semana
          // generar fechasd de los ultimos 7 diass
-         const fechas = [];
-         for (let i = 6; i >= 0; i--) {
-           const fecha = new Date();
-           fecha.setDate(fecha.getDate() - i);
-           fechas.push(fecha.toISOString().split("T")[0]); // Formato YYYY-MM-DD
-         }
- 
-         // Filtrar los minutos correspondientes
-         const minutosPorFecha = fechas.map((fecha) => {
-           const registrosDelDia = registros.filter((item) => item.fecha === fecha);
-           const totalMinutos = registrosDelDia.reduce((sum, item) => sum + item.tiempo, 0);
-           return totalMinutos;
-         });
+    
  
          // Agrego las fechas y los minutos al store
-         dispatcher(onLoadFechas(fechas));
-         dispatcher(onLoadMinutosFechas(minutosPorFecha));
+       
 
       }
     }

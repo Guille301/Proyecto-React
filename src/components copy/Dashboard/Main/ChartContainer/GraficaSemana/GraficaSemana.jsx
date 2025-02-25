@@ -1,19 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactApexChart from 'react-apexcharts';
 import { useSelector } from "react-redux";
 
 const Barras = () => {
-  const Fechas = useSelector((state) => state.userSlice.Fechas);
-  const MinutosFechas = useSelector((state) => state.userSlice.MinutosFechas);
+  const registros = useSelector((state) => state.userSlice.ejercicios);
 
+  // Generar fechas de los últimos 7 días
+  const fechas = [];
+  for (let i = 6; i >= 0; i--) {
+    const fecha = new Date();
+    fecha.setDate(fecha.getDate() - i);
+    fechas.push(fecha.toISOString().split("T")[0]); // Formato YYYY-MM-DD
+  }
+  console.log("Fechas generadas:", fechas);
 
-  console.log("Fechas",Fechas)
-  console.log("Minutos de las fechas", MinutosFechas)
+  // Calcular minutos por fecha
+  const minutosPorFecha = fechas.map((fecha) => {
+    const registrosDelDia = registros.filter((item) => item.fecha === fecha);
+    const totalMinutos = registrosDelDia.reduce((sum, item) => sum + item.tiempo, 0);
+    return totalMinutos;
+  });
+  console.log("Minutos por fecha:", minutosPorFecha);
 
-  const [state, setState] = React.useState({
+  // Estado del gráfico
+  const [state, setState] = useState({
     series: [{
       name: 'Minutos',
-      data: MinutosFechas, // Array de números
+      data: minutosPorFecha, // Array de números
     }],
     options: {
       chart: {
@@ -41,7 +54,7 @@ const Barras = () => {
         }
       },
       xaxis: {
-        categories: Fechas, // Array de strings
+        categories: fechas, // Array de strings
         position: 'bottom', // Mover las etiquetas del eje X hacia abajo
         axisBorder: {
           show: false
@@ -86,6 +99,24 @@ const Barras = () => {
       }
     },
   });
+
+  // Actualizar el estado cuando cambien los registros
+  useEffect(() => {
+    setState((prevState) => ({
+      ...prevState,
+      series: [{
+        name: 'Minutos',
+        data: minutosPorFecha,
+      }],
+      options: {
+        ...prevState.options,
+        xaxis: {
+          ...prevState.options.xaxis,
+          categories: fechas,
+        },
+      },
+    }));
+  }, [registros]);
 
   return (
     <div>
