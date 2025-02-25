@@ -12,7 +12,7 @@ const ToDoTableRow = ({ id, idActividad, tiempo, fecha }) => {
   const dispatcher = useDispatch();
   const [title, setTitle] = useState("");
   const [idImagen, setIdImagen] = useState("");
-  const [actividades, setActividades] = useState([]);
+  const actividades = useSelector((state) => state.userSlice.categories);
 
   const _onDeleteRegistro = async () => {
     try {
@@ -33,7 +33,7 @@ const ToDoTableRow = ({ id, idActividad, tiempo, fecha }) => {
     return actividad ? actividad.imagen : "Actividad no encontrada";
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     const fetchActividades = async () => {
       try {
         const response = await ObtenerActividades(apiKey, idUser);
@@ -46,7 +46,7 @@ const ToDoTableRow = ({ id, idActividad, tiempo, fecha }) => {
     if (apiKey && idUser) {
       fetchActividades();
     }
-  }, [apiKey, idUser]);
+  }, [apiKey, idUser]); */
 
   useEffect(() => {
     if (actividades.length > 0) {
