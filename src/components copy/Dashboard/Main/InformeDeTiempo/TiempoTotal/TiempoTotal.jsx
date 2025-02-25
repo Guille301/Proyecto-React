@@ -1,5 +1,5 @@
 import "./Stats.css";
-import { ObtenerRegistro } from "../../../../services/api";
+import { ObtenerRegistro } from "../../../../../services/api";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
@@ -30,16 +30,11 @@ const TiempoMinutos = () => {
   }, [userData]);
 
   return (
-    <div className="row text-center">
-      <div className="col-md-4">
-        <div className={`card stats-info`}>
-          <div className="card-body">
-            <h2>Tiempo total en minutos</h2>
+    <div >
+      
             <h3>{minutos}</h3>
-          </div>
-        </div>
-      </div>
     </div>
+      
   );
 };
 

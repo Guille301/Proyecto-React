@@ -1,5 +1,4 @@
-import "./styleDiario.css";
-import { ObtenerRegistro } from "../../../../services/api";
+import { ObtenerRegistro } from "../../../../../services/api";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
@@ -32,17 +31,15 @@ const TiempoDiario = () => {
     }
   }, [userData]);
 
+console.log("Minutos diarios", minutosDiarios)
+
+
   return (
     <div className="row text-center desing">
-      <div className="col-md-4 desing">
-        <div className={`card design`}>
-          <div className="card-body desing">
-            <h2>Tiempo diario en minutos</h2>
+     
             <h3>{minutosDiarios}</h3>
-          </div>
-        </div>
-      </div>
     </div>
+    
   );
 };
 
