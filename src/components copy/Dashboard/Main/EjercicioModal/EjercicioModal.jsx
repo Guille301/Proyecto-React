@@ -38,6 +38,17 @@ const EjercicioModal = ({ onToggleModal, onAddToDo }) => {
       return;
     }
 
+  const fechaIngresada = new Date(fecha);
+  const fechaActual = new Date();
+
+  fechaIngresada.setHours(0, 0, 0, 0);
+  fechaActual.setHours(0, 0, 0, 0);
+
+  if (fechaIngresada > fechaActual) {
+    alert("No puedes ingresar una fecha mayor a la fecha actual");
+    return;
+  }
+
     try {
       if (userData) {
         const { id, apiKey } = userData;

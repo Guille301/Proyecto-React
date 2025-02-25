@@ -37,9 +37,11 @@ const Pastel = () => {
 
   const getTitulo = (idActividad) => {
     const actividad = actividades.find((actividad) => actividad.id === idActividad);
-    return actividad ? actividad.nombre : "Actividad no encontrada";
-  };
+    const nombreActividad = actividad ? actividad.nombre : "Actividad no encontrada";
 
+    return nombreActividad;
+
+  };
 
 
   const sesionesPorActividad = {};
@@ -50,20 +52,16 @@ const Pastel = () => {
     sesionesPorActividad[item.idActividad] += 1; 
   });
 
-  const seriesData = Object.values(sesionesPorActividad); 
+  const sortedActivityIds = Object.keys(sesionesPorActividad).sort((a, b) => a - b);
 
+  const seriesData = sortedActivityIds.map((id) => sesionesPorActividad[id]);
 
-
- 
-  const uniqueActivities = new Set(registros.map((item) => item.idActividad)); 
-  const labelsData = Array.from(uniqueActivities).map((idActividad) => getTitulo(idActividad)); 
+  const labelsData = sortedActivityIds.map((idActividad) => getTitulo(Number(idActividad)));
 
 
 
 
 
-
-  
 
 
 
