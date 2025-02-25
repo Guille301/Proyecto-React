@@ -18,7 +18,6 @@ const Pastel = () => {
   const [actividades, setActividades] = useState([]);
 
 
-
   useEffect(() => {
     const fetchActividades = async () => {
       try {
