@@ -14,7 +14,6 @@ const login = async (username, password) => {
         password: password,
       }),
     });
-    console.log(response)
     if (response.status == 200) {
       return response.json();
     } if (response.status == 409) {
@@ -35,7 +34,6 @@ const getPaises = async () => {
         "Content-type": "application/json",
       }
     });
-    console.log(response)
     if (response.status == 200) {
       return response.json();
     } else {
@@ -59,9 +57,7 @@ const registrarse = async (username, password, pais) => {
         pais: pais
       }),
     });
-    console.log(response)
     if (response.status == 200) {
-      console.log("registro exitoso")
       return response.json();
     }else if(response.status == 409){
       return Promise.reject("El nombre de usuario ya está en uso");
@@ -92,18 +88,15 @@ const agregarRegistro = async (tiempo, fecha, idUsuario, apiKey, idActividad) =>
     });
 
     if (response.ok) {
-      console.log("Guardado correctamente")
       return response.json(); // Si la respuesta es exitosa, devuelve los datos
       
     } else {
       const errorData = await response.json(); // Captura el cuerpo de la respuesta en caso de error
-      console.log("Error del servidor:", errorData); // Muestra el mensaje de error
       return Promise.reject({
         message: "Ha ocurrido un error",
       });
     }
   } catch (error) {
-    console.log("Error en la solicitud:", error); // Captura errores de red o de la API
     return Promise.reject({
       message: "Ha ocurrido un error",
     });
@@ -123,17 +116,13 @@ const ObtenerActividades = async (apiKey, idUser) => {
       },
     });
 
-    console.log(response);
 
     if (response.ok) {
-      console.log("Entro");
       return response.json();
     } else {
-      console.log("No entro", response.status);
       return Promise.reject(`Error: ${response.status}`);
     }
   } catch (error) {
-    console.log("No entro2", error);
     return Promise.reject("Ha ocurrido un error");
   }
 };
@@ -153,17 +142,13 @@ const ObtenerRegistro = async (apiKey, idUser) => {
       },
     });
 
-    console.log(response);
 
     if (response.ok) {
-      console.log("Devuelve registros");
       return response.json();
     } else {
-      console.log("No entro en registro", response.status);
       return Promise.reject(`Error: ${response.status}`);
     }
   } catch (error) {
-    console.log("No entro2 en registro", error);
     return Promise.reject("Ha ocurrido un error");
   }
 };
@@ -181,17 +166,15 @@ const EliminarRegistro = async (idRegistro, apiKey, idUser) => {
       },
     });
 
-    console.log(response);
+
 
     if (response.ok) {
-      console.log("Registro eliminado");
       return response.json();
     } else {
-      console.log("No entro en eliminar", response.status);
       return Promise.reject(`Error: ${response.status}`);
     }
   } catch (error) {
-    console.log("No entro en eliminar", error);
+  
     return Promise.reject("Ha ocurrido un error");
   }
 }
