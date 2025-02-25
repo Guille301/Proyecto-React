@@ -18,7 +18,6 @@ const Dashboard = () => {
       if (checkUser) {
         dispatcher(onLogin(checkUser));
         const response = await ObtenerRegistro(apiKey, id);
-        console.log("Respuesta de la API", response);
         const registros = response.registros || [];
       }
     }

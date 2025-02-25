@@ -13,7 +13,6 @@ const Frase = () => {
     fecha.setDate(fecha.getDate() - i);
     fechas.push(fecha.toISOString().split("T")[0]); // Formato YYYY-MM-DD
   }
-  console.log("Fechas generadas:", fechas);
 
   // Calcular minutos por fecha
   const minutosPorFecha = fechas.map((fecha) => {

@@ -7,22 +7,20 @@ const TiempoDiario = () => {
 
   useEffect(() => {
     if (registros && Array.isArray(registros)) {
-      // Obtener la fecha actual en formato YYYY-MM-DD
+      
       const today = new Date().toISOString().split('T')[0];
 
-      // Filtrar los registros por la fecha actual y sumar los minutos
+     
       const totalTiempoDiario = registros
         .filter(item => item.fecha === today)
         .reduce((sum, item) => sum + item.tiempo, 0);
 
-      console.log("Total tiempo diario:", totalTiempoDiario); // Verifica el valor calculado
       setMinutosDiarios(totalTiempoDiario);
     } else {
       console.error("Formato de registros incorrecto:", registros);
     }
-  }, [registros]); // Dependencia: registros
+  }, [registros]); 
 
-  console.log("Minutos diarios", minutosDiarios); // Verifica el valor de minutosDiarios
 
   return (
     <div className="row text-center desing">

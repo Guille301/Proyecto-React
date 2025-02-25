@@ -43,7 +43,6 @@ const EjercicioModal = ({ onToggleModal, onAddToDo }) => {
         const { id, apiKey } = userData;
         await agregarRegistro(tiempo, fecha, id, apiKey, actividad);
         const response = await ObtenerRegistro(apiKey, id);
-        console.log("Registros del usuario:", response.registros);
         dispatcher(onLoadEjercicios(response.registros));
         onToggleModal();
       }

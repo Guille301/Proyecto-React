@@ -12,7 +12,6 @@ const Barras = () => {
     fecha.setDate(fecha.getDate() - i);
     fechas.push(fecha.toISOString().split("T")[0]); // Formato YYYY-MM-DD
   }
-  console.log("Fechas generadas:", fechas);
 
   // Calcular minutos por fecha
   const minutosPorFecha = fechas.map((fecha) => {
@@ -20,7 +19,6 @@ const Barras = () => {
     const totalMinutos = registrosDelDia.reduce((sum, item) => sum + item.tiempo, 0);
     return totalMinutos;
   });
-  console.log("Minutos por fecha:", minutosPorFecha);
 
   // Estado del gráfico
   const [state, setState] = useState({
